@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { RegisterAuthDto } from './dto/registerUser.dto';
 
 @Injectable()
 export class AuthService {
-  async registerUser(): Promise<void> {
-    console.log('Hello');
+  async registerUser(registerAuthDto: RegisterAuthDto): Promise<void> {
+    return null;
   }
 }
