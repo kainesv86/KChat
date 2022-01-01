@@ -1,3 +1,4 @@
+import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
 
 dotenv.config({
@@ -12,6 +13,7 @@ export const NS_APP = 'KChat';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(cookieParser());
 
   await app.listen(config.PORT, () => {
     monoLogger.log(NS_APP, `Current Mode: ${config.NODE_ENV}`);

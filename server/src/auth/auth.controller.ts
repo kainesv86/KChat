@@ -9,6 +9,7 @@ import {
   Res,
   BadRequestException,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 
@@ -20,6 +21,7 @@ import { AuthService } from './auth.service';
 
 import { config } from '../config';
 import { LoginAuthDto } from './dto/loginUser';
+import { UserGuard } from './auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -82,6 +84,7 @@ export class AuthController {
   }
 
   @Post('/logout')
+  @UseGuards(UserGuard)
   async logoutUser(@Req() req: Request, @Res() res: Response) {
     return res.cookie('access-token', '', { maxAge: -999 }).send();
   }
