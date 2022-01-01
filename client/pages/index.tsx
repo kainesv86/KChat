@@ -3,11 +3,8 @@ import SideBar from "../components/sideBar";
 
 const Home: NextPage = () => {
         return (
-                <div className="bg-[#CDC8B0] h-screen flex">
-                        <SideBar />
-                        <div className="">
-                                <h1 className="text-3xl font-bold underline text-black"> Hello world! </h1>
-                        </div>
+                <div className="flex-1 bg-red-300">
+                        <h1 className="text-3xl font-bold text-black underline"> Hello world! </h1>
                 </div>
         );
 };
