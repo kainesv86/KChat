@@ -8,8 +8,9 @@ import {
   Delete,
   Res,
   BadRequestException,
+  Req,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
@@ -19,7 +20,6 @@ import { AuthService } from './auth.service';
 
 import { config } from '../config';
 import { LoginAuthDto } from './dto/loginUser';
-import { NotFoundError } from 'rxjs';
 
 @Controller('auth')
 export class AuthController {
@@ -79,6 +79,11 @@ export class AuthController {
     return res
       .cookie('access-token', accessToken, { maxAge: config.MAX_AGE })
       .send();
+  }
+
+  @Post('/logout')
+  async logoutUser(@Req() req: Request, @Res() res: Response) {
+    return res.cookie('access-token', '', { maxAge: -999 }).send();
   }
 
   // @Get()
