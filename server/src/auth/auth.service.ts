@@ -8,8 +8,8 @@ import { User } from 'src/user/entities/user.entity';
 export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
-  async encryptString(password: string): Promise<string> {
-    return await bcrypt.hash(password, 5);
+  async encryptString(data: string): Promise<string> {
+    return await bcrypt.hash(data, 5);
   }
 
   async createAccessToken(user: User): Promise<string> {
@@ -18,5 +18,9 @@ export class AuthService {
       id: user.id,
       email: user.email,
     });
+  }
+
+  async decryptString(data: string, encryptString: string): Promise<boolean> {
+    return bcrypt.compare(data, encryptString);
   }
 }

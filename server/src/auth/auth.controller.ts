@@ -18,6 +18,8 @@ import { RegisterAuthDto } from './dto/registerUser.dto';
 import { AuthService } from './auth.service';
 
 import { config } from '../config';
+import { LoginAuthDto } from './dto/loginUser';
+import { NotFoundError } from 'rxjs';
 
 @Controller('auth')
 export class AuthController {
@@ -44,6 +46,35 @@ export class AuthController {
     newUser.email = email;
     const insertedUser = await this.userService.registerUser(newUser);
     const accessToken = await this.authService.createAccessToken(insertedUser);
+
+    return res
+      .cookie('access-token', accessToken, { maxAge: config.MAX_AGE })
+      .send();
+  }
+
+  @Post('login')
+  async signIn(
+    @Body() { username, password }: LoginAuthDto,
+    @Res() res: Response,
+  ) {
+    const isUserExist = await this.userService.findUserByUsername(username);
+
+    if (!isUserExist)
+      throw new BadRequestException({
+        error: { errorMessage: 'Username or password are incorrect' },
+      });
+
+    const isCorrect = this.authService.decryptString(
+      password,
+      isUserExist.password,
+    );
+
+    if (!isCorrect)
+      throw new BadRequestException({
+        error: { errorMessage: 'Username or password are incorrect' },
+      });
+
+    const accessToken = await this.authService.createAccessToken(isUserExist);
 
     return res
       .cookie('access-token', accessToken, { maxAge: config.MAX_AGE })
