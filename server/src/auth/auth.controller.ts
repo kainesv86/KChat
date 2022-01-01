@@ -10,18 +10,20 @@ import {
   BadRequestException,
   Req,
   UseGuards,
+  UsePipes,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 
-import { RegisterAuthDto } from './dto/registerUser.dto';
+import { RegisterAuthDto, vRegisterAuthDto } from './dto/registerUser.dto';
 import { AuthService } from './auth.service';
 
 import { config } from '../config';
-import { LoginAuthDto } from './dto/loginUser';
+import { LoginAuthDto, vLoginAuthDto } from './dto/loginUser';
 import { UserGuard } from './auth.guard';
+import { JoiValidationPipe } from 'src/utils/validator/validator.pipe';
 
 @Controller('auth')
 export class AuthController {
@@ -31,6 +33,7 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @UsePipes(new JoiValidationPipe(vRegisterAuthDto))
   async signUp(
     @Body() { username, email, password }: RegisterAuthDto,
     @Res() res: Response,
@@ -55,6 +58,7 @@ export class AuthController {
   }
 
   @Post('login')
+  @UsePipes(new JoiValidationPipe(vLoginAuthDto))
   async signIn(
     @Body() { username, password }: LoginAuthDto,
     @Res() res: Response,
