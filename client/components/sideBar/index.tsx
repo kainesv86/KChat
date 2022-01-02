@@ -6,9 +6,12 @@ import KChatLogo from "../../public/asset/sidebar-logo";
 import UserFriend from "./userFriend";
 import { UserFriendProps } from "./userFriend";
 
-interface SideBarProps {}
+interface SideBarProps {
+        isActive?: boolean;
+        setActive: Function;
+}
 
-const SideBar: React.FunctionComponent<SideBarProps> = () => {
+const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setActive = () => {} }) => {
         const userFriends: Array<UserFriendProps> = [
                 {
                         name: "Kainé",
@@ -24,15 +27,17 @@ const SideBar: React.FunctionComponent<SideBarProps> = () => {
                 },
         ];
         return (
-                <div>
-                        <ul className="flex flex-col h-full p-4 w-72">
-                                <li className="flex justify-center h-16 mb-2 ">
-                                        <Link href="/" className="w-16 rounded-full hover:bg-yellow-100/25 cursor-pointer">
-                                                <KChatLogo />
+                <div className={`absolute sm:static w-full bg-[#dad4bb] z-20 duration-300 ${isActive ? "" : "-translate-x-full"}  sm:translate-x-0`}>
+                        <ul className={`flex  flex-col h-screen p-4 sm:w-72 w-full   overflow-hidden bg-transparent sm:bg-inherit  `}>
+                                <li className="flex justify-center h-16 mb-2" onClick={() => setActive(false)}>
+                                        <Link href="/" passHref={true}>
+                                                <a href="/" className="w-16 rounded-full hover:bg-yellow-100/25 cursor-pointer">
+                                                        <KChatLogo />
+                                                </a>
                                         </Link>
                                 </li>
                                 {userFriends.map((item) => (
-                                        <li key={item.username}>
+                                        <li key={item.username} onClick={() => setActive(false)}>
                                                 <UserFriend
                                                         name={item.name}
                                                         username={item.username}

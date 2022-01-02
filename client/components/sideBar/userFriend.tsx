@@ -10,11 +10,11 @@ export interface UserFriendProps {
 const UserFriend: React.FunctionComponent<UserFriendProps> = ({ avatarUrl, description, name, username }) => {
         return (
                 <div className="group transform cursor-pointer mb-2">
-                        <span className="block w-0 group-hover:w-full h-px mb-1 bg-gray-900 duration-500"></span>
+                        <span className="block w-0 group-hover:w-full h-px mb-px bg-gray-900"></span>
                         <div className="relative flex flex-col">
-                                <div className="absolute block w-0 h-full duration-300 transform group-hover:w-full bg-gray-900/50"></div>
+                                <div className="absolute block w-0 h-full duration-500 transform group-hover:w-full bg-gray-900/50"></div>
                                 <div className="z-10 flex px-2 py-1">
-                                        <div className="w-12 h-12 mr-4">
+                                        <div className="w-10 h-10 mr-4">
                                                 <img className="w-full h-full" src={avatarUrl} alt={username} />
                                         </div>
                                         <div className="flex flex-col justify-center text-left">
@@ -25,7 +25,7 @@ const UserFriend: React.FunctionComponent<UserFriendProps> = ({ avatarUrl, descr
                                         </div>
                                 </div>
                         </div>
-                        <span className="block w-0 group-hover:w-full h-px mt-1 bg-gray-900 duration-500"></span>
+                        <span className="block w-full group-hover:opacity-100 opacity-0 h-px mt-px bg-gray-900"></span>
                 </div>
         );
 };
