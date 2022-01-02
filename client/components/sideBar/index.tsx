@@ -27,8 +27,12 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                 },
         ];
         return (
-                <div className={`absolute sm:static w-full bg-[#dad4bb] z-20 duration-300 ${isActive ? "" : "-translate-x-full"}  sm:translate-x-0`}>
-                        <ul className={`flex  flex-col h-screen p-4 sm:w-72 w-full   overflow-hidden bg-transparent sm:bg-inherit  `}>
+                <div
+                        className={`sm:w-72 absolute sm:static w-full  z-20 duration-300 bg-[#dad4bb] sm:bg-inherit ${
+                                isActive ? "" : "-translate-x-full"
+                        }  sm:translate-x-0`}
+                >
+                        <ul className={`flex flex-col h-screen p-4 overflow-hidden`}>
                                 <li className="flex justify-center h-16 mb-2" onClick={() => setActive(false)}>
                                         <Link href="/" passHref={true}>
                                                 <a href="/" className="w-16 rounded-full hover:bg-yellow-100/25 cursor-pointer">
