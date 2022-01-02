@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import { AuthState } from "../../common/interface/auth.dto";
 
 import KChatLogo from "../../public/asset/sidebar-logo";
+import LoginIcon from "../../public/asset/login";
+import RegisterIcon from "../../public/asset/register";
+
 import { RootState } from "../../store";
 import UserFriend from "./userFriend";
 import { UserFriendProps } from "./userFriend";
@@ -44,6 +47,9 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                                 </a>
                                         </Link>
                                 </li>
+                                <li>
+                                        <UserFriend name={"No one here"} username="" description={"You need to login to see them again"} />
+                                </li>
 
                                 {isLogin
                                         ? userFriends.map((item) => (
@@ -64,22 +70,18 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                                         <div onClick={() => setActive(false)}>
                                                                 <Link href="/user/login">
                                                                         <a href="/user/login">
-                                                                                <UserFriend
-                                                                                        avatarUrl="https://i.ibb.co/PY0ZCXS/49234258-2171577439772648-3163590464041385984-n.jpg"
-                                                                                        name="Login"
-                                                                                        username=""
-                                                                                />
+                                                                                <UserFriend name="Login" username="">
+                                                                                        <LoginIcon />
+                                                                                </UserFriend>
                                                                         </a>
                                                                 </Link>
                                                         </div>
                                                         <div onClick={() => setActive(false)}>
                                                                 <Link href="/user/register">
                                                                         <a href="/user/register">
-                                                                                <UserFriend
-                                                                                        avatarUrl="https://i.ibb.co/PY0ZCXS/49234258-2171577439772648-3163590464041385984-n.jpg"
-                                                                                        name="Register"
-                                                                                        username=""
-                                                                                />
+                                                                                <UserFriend name="Register" username="">
+                                                                                        <RegisterIcon />
+                                                                                </UserFriend>
                                                                         </a>
                                                                 </Link>
                                                         </div>
