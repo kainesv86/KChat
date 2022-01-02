@@ -14,6 +14,7 @@ export const NS_APP = 'KChat';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
+  app.enableCors({ origin: 'http://localhost:3000', credentials: true });
 
   await app.listen(config.PORT, () => {
     monoLogger.log(NS_APP, `Current Mode: ${config.NODE_ENV}`);
