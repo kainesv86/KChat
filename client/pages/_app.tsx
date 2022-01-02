@@ -1,6 +1,8 @@
 import "../styles/globals.css";
 import * as React from "react";
 
+import Cookies from "universal-cookie";
+
 import SideBar from "../components/sideBar";
 import NavBar from "../components/navbar";
 
@@ -8,9 +10,16 @@ import type { AppProps } from "next/app";
 
 import { Provider } from "react-redux";
 import { store } from "../store";
+import { authActions } from "../store/auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
         const [activeBurger, setActiveBurger] = React.useState<boolean>(false);
+        const cookies = new Cookies();
+
+        React.useEffect(() => {
+                const accessToken = cookies.get("access-token");
+                if (accessToken) store.dispatch(authActions.updateLogin);
+        });
 
         return (
                 <Provider store={store}>
