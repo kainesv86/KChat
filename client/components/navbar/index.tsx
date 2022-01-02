@@ -16,8 +16,8 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({ isActive = false, setAct
         const { isLogin } = useSelector<RootState, AuthState>((state) => state.auth);
 
         return (
-                <div className="flex items-center px-4 sm:px-8 sm:py-10 py-4 z-10">
-                        <div className="sm:hidden block">
+                <div className="flex items-center px-4 sm:px-8 sm:py-10 py-4 z-10 bg-[#c8c3ad]">
+                        <div className="sm:hidden block bg-[#c8c3ad]">
                                 <BurgerButton func={() => setActive(!isActive)} />
                         </div>
 

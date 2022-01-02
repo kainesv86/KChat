@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         return (
                 <Provider store={store}>
-                        <div className="bg-[#CDC8B0] h-screen flex relative">
+                        <div className="bg-yohra h-screen flex relative">
                                 <SideBar isActive={activeBurger} setActive={setActiveBurger} />
                                 <div className="flex-1 flex flex-col">
                                         <NavBar isActive={activeBurger} setActive={setActiveBurger} />

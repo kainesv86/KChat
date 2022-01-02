@@ -17,3 +17,10 @@ a {
 * {
         box-sizing: border-box;
 }
+
+.bg-yohra {
+        background: url(https://i.imgur.com/ndDVXru.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+}

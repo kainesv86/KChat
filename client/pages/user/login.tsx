@@ -5,6 +5,7 @@ import Form from "../../components/form";
 
 import { useForm } from "react-hook-form";
 import { UserLoginDto } from "../../common/interface/auth.dto";
+import ButtonForm from "../../components/common/buttonForm";
 
 interface LoginProps {}
 
@@ -17,7 +18,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
 
         return (
                 <div className="flex justify-center sm:items-center flex-1">
-                        <div className="-translate-y-1/4">
+                        <div className="sm:-translate-y-1/4 w-full sm:w-auto">
                                 <Form handleSubmit={handleSubmit(onSubmit)}>
                                         <p className="text-gray-900 text-center text-3xl font-semibold mb-2">Login</p>
                                         <p
@@ -27,8 +28,16 @@ const Login: React.FunctionComponent<LoginProps> = () => {
                                                 We will let you in!
                                         </p>
                                         <InputField label="Username" type="text" name="username" register={register} />
-                                        <InputField label="Password" type="password" name="password" register={register} />
-                                        <input type="submit" value="send" />
+                                        <InputField
+                                                label="Password"
+                                                type="password"
+                                                name="password"
+                                                register={register}
+                                                error="Something got error"
+                                        />
+                                        <div className="mt-4">
+                                                <ButtonForm type="submit" label="Login" name="login" />
+                                        </div>
                                 </Form>
                         </div>
                 </div>
