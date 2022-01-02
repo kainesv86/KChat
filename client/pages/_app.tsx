@@ -21,6 +21,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                 if (accessToken) store.dispatch(authActions.updateLogin);
         });
 
+        React.useEffect(() => {}, []);
+
         return (
                 <Provider store={store}>
                         <div className="bg-yohra h-screen flex relative">

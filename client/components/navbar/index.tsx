@@ -17,14 +17,14 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({ isActive = false, setAct
 
         return (
                 <div className="flex items-center px-4 sm:px-8 sm:py-10 py-4 z-10 bg-[#c8c3ad]">
-                        <div className="sm:hidden block bg-[#c8c3ad]">
+                        <div className="sm:hidden block">
                                 <BurgerButton func={() => setActive(!isActive)} />
                         </div>
 
                         {isLogin ? (
-                                <div className="font-semibold text-lg text-gray-900">
+                                <div className="font-semibold text-lg text-gray-900 sm:block hidden">
                                         <a className="mr-6 hover:bg-gray-900/50 hover:text-gray-200 rounded px-2" href="">
-                                                Add
+                                                All
                                         </a>
                                         <a className="mr-6 hover:bg-gray-900/50 hover:text-gray-200 rounded px-2" href="">
                                                 Pending
