@@ -70,7 +70,7 @@ export class AuthController {
         error: { errorMessage: 'Username or password are incorrect' },
       });
 
-    const isCorrect = this.authService.decryptString(
+    const isCorrect = await this.authService.decryptString(
       password,
       isUserExist.password,
     );

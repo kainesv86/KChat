@@ -17,7 +17,6 @@ export function userJoiSchema(field: keyof User) {
         .min(5)
         .max(40)
         .trim()
-        .lowercase()
         .alphanum()
         .required()
         .messages(StringVnLang);
