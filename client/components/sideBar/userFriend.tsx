@@ -2,7 +2,7 @@ import * as React from "react";
 
 export interface UserFriendProps {
         avatarUrl: string;
-        username: string;
+        username?: string;
         name: string;
         description?: string;
 }
