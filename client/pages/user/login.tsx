@@ -6,6 +6,8 @@ import Form from "../../components/form";
 import { useForm } from "react-hook-form";
 import { UserLoginDto } from "../../common/interface/auth.dto";
 import ButtonForm from "../../components/common/buttonForm";
+import { store } from "../../store";
+import authThunk from "../../store/auth/userthunk";
 
 interface LoginProps {}
 
@@ -13,14 +15,14 @@ const Login: React.FunctionComponent<LoginProps> = () => {
         const { register, handleSubmit } = useForm<UserLoginDto>();
 
         const onSubmit = (data: UserLoginDto) => {
-                console.log(data);
+                store.dispatch(authThunk.loginUser(data));
         };
 
         return (
                 <div className="flex justify-center sm:items-center flex-1">
                         <div className="sm:-translate-y-1/4 w-full sm:w-auto">
                                 <Form handleSubmit={handleSubmit(onSubmit)}>
-                                        <p className="text-gray-900 text-center text-3xl font-semibold mb-2">Login</p>
+                                        <p className="text-gray-900/80 text-center text-3xl font-semibold mb-2">Login</p>
                                         <p
                                                 className="text-gray-700 text-center text-sm font-medium
                                         mb-8"
