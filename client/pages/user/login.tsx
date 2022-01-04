@@ -20,7 +20,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
 
         return (
                 <div className="flex justify-center sm:items-center flex-1">
-                        <div className="sm:-translate-y-1/4 w-full sm:w-auto">
+                        <div className="w-full sm:w-auto">
                                 <Form handleSubmit={handleSubmit(onSubmit)}>
                                         <p className="text-gray-900/80 text-center text-3xl font-semibold mb-2">Login</p>
                                         <p
