@@ -8,6 +8,7 @@ import { UserRegisterDto } from "../../common/interface/auth.dto";
 import ButtonForm from "../../components/common/buttonForm";
 import { store } from "../../store";
 import authThunk from "../../store/auth/userthunk";
+import authApi from "../../api/authApi";
 
 interface RegisterProps {}
 
@@ -15,7 +16,8 @@ const Register: React.FunctionComponent<RegisterProps> = () => {
         const { register, handleSubmit } = useForm<UserRegisterDto>();
 
         const onSubmit = (data: UserRegisterDto) => {
-                store.dispatch(authThunk.registerUser(data));
+                // store.dispatch(authThunk.registerUser(data));
+                authApi.registerUser(data);
         };
 
         return (

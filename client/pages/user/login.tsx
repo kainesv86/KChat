@@ -8,6 +8,7 @@ import { UserLoginDto } from "../../common/interface/auth.dto";
 import ButtonForm from "../../components/common/buttonForm";
 import { store } from "../../store";
 import authThunk from "../../store/auth/userthunk";
+import authApi from "../../api/authApi";
 
 interface LoginProps {}
 
@@ -15,7 +16,8 @@ const Login: React.FunctionComponent<LoginProps> = () => {
         const { register, handleSubmit } = useForm<UserLoginDto>();
 
         const onSubmit = (data: UserLoginDto) => {
-                store.dispatch(authThunk.loginUser(data));
+                // store.dispatch(authThunk.loginUser(data));
+                authApi.loginUser(data);
         };
 
         return (
