@@ -9,7 +9,7 @@ import { config } from './config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { monoLogger } from 'mono-utils-core';
-export const NS_APP = 'KChat';
+export const NS_APP = 'KChat-hh';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

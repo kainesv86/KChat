@@ -7,5 +7,5 @@ export const config = {
   DB_NAME: process.env.DB_NAME || '',
   PORT: Number(process.env.PORT) || 4000,
   JWT_SECRET: process.env.JWT_SECRET || '',
-  MAX_AGE: Number(process.env.MAX_AGE) || 3600,
+  // MAX_AGE: Number(process.env.MAX_AGE) || 360000,
 };

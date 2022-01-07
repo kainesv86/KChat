@@ -53,7 +53,7 @@ export class AuthController {
     const accessToken = await this.authService.createAccessToken(insertedUser);
 
     return res
-      .cookie('access-token', accessToken, { maxAge: config.MAX_AGE })
+      .cookie('access-token', accessToken, { maxAge: 60 * 60 * 1000 })
       .send();
   }
 
@@ -83,7 +83,7 @@ export class AuthController {
     const accessToken = await this.authService.createAccessToken(isUserExist);
 
     return res
-      .cookie('access-token', accessToken, { maxAge: config.MAX_AGE })
+      .cookie('access-token', accessToken, { maxAge: 60 * 60 * 1000 })
       .send();
   }
 
