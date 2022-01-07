@@ -1,5 +1,4 @@
 import * as React from "react";
-import InputField from "../common/inputField";
 
 interface FormProps {
         handleSubmit?: React.FormEventHandler;

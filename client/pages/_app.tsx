@@ -17,11 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         const cookies = new Cookies();
 
         React.useEffect(() => {
+                console.log("Hello");
                 const accessToken = cookies.get("access-token");
-                if (accessToken) store.dispatch(authActions.updateLogin);
-        });
-
-        React.useEffect(() => {}, []);
+                if (accessToken) store.dispatch(authActions.updateLogin());
+        }, [cookies]);
 
         return (
                 <Provider store={store}>
