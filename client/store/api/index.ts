@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { JoiError } from "../../common/interface/api.interface";
+import { JoiError, ApiState } from "../../common/interface/api.interface";
 
 const initialState: ApiState = {
         isLoading: false,
@@ -20,7 +20,7 @@ const reducer = createSlice({
                         const newState = { ...state };
                         if (payload?.errorMessage) newState.errorMessage = payload.errorMessage;
 
-                        newState.errorDetail = payload;
+                        newState.errorDetails = payload;
                         newState.isError = true;
                         return newState;
                 },
