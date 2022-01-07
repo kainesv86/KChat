@@ -23,7 +23,6 @@ const Login: React.FunctionComponent<LoginProps> = () => {
         const errors = useFormError<UserLoginDto>(defaultValues);
 
         const onSubmit = (data: UserLoginDto) => {
-                // store.dispatch(authThunk.loginUser(data));
                 authApi.loginUser(data);
         };
 

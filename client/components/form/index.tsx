@@ -7,7 +7,7 @@ interface FormProps {
 
 const Form: React.FunctionComponent<FormProps> = ({ children, handleSubmit }) => {
         return (
-                <form className="flex flex-col px-4 py-20 w-full sm:w-96" onSubmit={handleSubmit}>
+                <form className="flex flex-col px-4 w-full sm:w-96" onSubmit={handleSubmit}>
                         {children}
                 </form>
         );
