@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { JoiError } from "../../common/interface/api.interface";
 
 const initialState: ApiState = {
         isLoading: false,
@@ -15,6 +16,20 @@ const reducer = createSlice({
                 initReq: (state) => ({ ...state, isLoading: true, isError: false }),
                 setLoading: (state, { payload: { isLoading } }) => ({ ...state, isLoading }),
                 resetState: (_) => ({ ...initialState }),
-                updateErrorDetails: (state, { payload }),
+                updateErrorDetails: (state, { payload }: PayloadAction<JoiError>) => {
+                        const newState = { ...state };
+                        if (payload?.errorMessage) newState.errorMessage = payload.errorMessage;
+
+                        newState.errorDetail = payload;
+                        newState.isError = true;
+                        return newState;
+                },
         },
+        extraReducers: (builder) => {},
 });
+
+export const apiActions = {
+        ...reducer.actions,
+};
+
+export const apiReducer = reducer.reducer;
