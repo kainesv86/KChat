@@ -5,6 +5,7 @@ import { apiActions } from "../store/api";
 const axiosClient = axios.create({ baseURL: "http://localhost:4000/", withCredentials: true });
 
 axiosClient.interceptors.response.use(function (response) {
+        console.log("Something");
         if (response?.data?.details?.message) store.dispatch(apiActions.resetState());
         return response;
 });

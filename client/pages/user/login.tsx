@@ -20,11 +20,11 @@ const defaultValues: UserLoginDto = {
 
 const Login: React.FunctionComponent<LoginProps> = () => {
         const { register, handleSubmit } = useForm<UserLoginDto>();
-        const error = useFormError<UserLoginDto>(defaultValues);
+        const errors = useFormError<UserLoginDto>(defaultValues);
 
         React.useEffect(() => {
-                console.log(error);
-        }, [error]);
+                console.log(errors);
+        }, [errors]);
 
         const onSubmit = (data: UserLoginDto) => {
                 store.dispatch(authThunk.loginUser(data));
@@ -42,8 +42,8 @@ const Login: React.FunctionComponent<LoginProps> = () => {
                                         >
                                                 We will let you in!
                                         </p>
-                                        <InputField label="Username" type="text" name="username" register={register} error={error.username} />
-                                        <InputField label="Password" type="password" name="password" register={register} error={error.password} />
+                                        <InputField label="Username" type="text" name="username" register={register} error={errors.username} />
+                                        <InputField label="Password" type="password" name="password" register={register} error={errors.password} />
                                         <div className="mt-4">
                                                 <ButtonForm type="submit" label="Login" name="login" />
                                         </div>
