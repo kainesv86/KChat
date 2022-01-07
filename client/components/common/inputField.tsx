@@ -25,7 +25,7 @@ const InputField: React.FunctionComponent<InputFieldProps> = ({ label, register,
                                         {...register(name)}
                                 />
                         </div>
-                        {error ? <p className="text-red-500 font-semibold py-1 px-2 text-sm">{`Error: ${error}`}</p> : null}
+                        {error ? <p className="text-red-500 font-semibold py-1 px-2 text-sm">{`${error}`}</p> : null}
                 </div>
         );
 };

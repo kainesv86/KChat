@@ -22,13 +22,9 @@ const Login: React.FunctionComponent<LoginProps> = () => {
         const { register, handleSubmit } = useForm<UserLoginDto>();
         const errors = useFormError<UserLoginDto>(defaultValues);
 
-        React.useEffect(() => {
-                console.log(errors);
-        }, [errors]);
-
         const onSubmit = (data: UserLoginDto) => {
-                store.dispatch(authThunk.loginUser(data));
-                // authApi.loginUser(data);
+                // store.dispatch(authThunk.loginUser(data));
+                authApi.loginUser(data);
         };
 
         return (
