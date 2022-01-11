@@ -15,6 +15,10 @@ export class UserService {
     return await this.userRepository.findOne({ username });
   }
 
+  async addFriendByUsername(username, friendUsername) {
+    return null;
+  }
+
   // create(createUserDto: CreateUserDto) {
   //   return 'This action adds a new user';
   // }
