@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { monoLogger } from 'mono-utils-core';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -18,10 +19,10 @@ export class UserGuard implements CanActivate {
     const accessToken = req.cookies['access-token'] || '';
     if (accessToken) {
       const user = await this.authService.getUserByAccessToken(accessToken);
-      if (!user.id) {
+      if (!user) {
         throw new UnauthorizedException('UnauthorizedException');
       } else req.user = user;
-    }
+    } else throw new UnauthorizedException('UnauthorizedException');
     return true;
   }
 }

@@ -17,5 +17,6 @@ import { UserModule } from 'src/user/user.module';
       },
     },
   ],
+  exports: [AuthService],
 })
 export class AuthModule {}

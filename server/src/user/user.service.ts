@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { monoLogger } from 'mono-utils-core';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -12,11 +13,26 @@ export class UserService {
   }
 
   async findUserByUsername(username: string): Promise<User> {
+    monoLogger.log('KChat-user', username);
     return await this.userRepository.findOne({ username });
   }
 
-  async addFriendByUsername(username, friendUsername) {
-    return null;
+  async addFriendByUsername(
+    user: User,
+    friendRequestDto: FriendRequestDto,
+  ): Promise<string> {
+    const friendUser = await this.findUserByUsername(
+      friendRequestDto.friendUsername,
+    );
+    if (!friendUser) return "This user doesn't exist";
+    if (friendUser.username === user.username) return 'Nope, you are';
+    monoLogger.log('KChat-FriendPending', friendUser);
+    if (!friendUser.pendingAddFriends) {
+      friendUser.pendingAddFriends = new Array<string>();
+    }
+    friendUser.pendingAddFriends.push(friendUser.username);
+    this.userRepository.save(friendUser);
+    return 'Send request successfully';
   }
 
   // create(createUserDto: CreateUserDto) {

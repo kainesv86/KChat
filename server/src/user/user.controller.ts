@@ -6,21 +6,24 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserGuard } from 'src/auth/auth.guard';
+import { UserGuard } from '../auth/auth.guard';
+import { Request } from 'express';
+import { monoLogger } from 'mono-utils-core';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('addfriend')
+  @Post('/addfriend')
   @UseGuards(UserGuard)
-  create(@Body() friendUsername: String) {
-    return friendUsername;
+  create(@Req() req: Request, @Body() friendRequestDto: FriendRequestDto) {
+    return this.userService.addFriendByUsername(req.user, friendRequestDto);
   }
 
   // @Get()
