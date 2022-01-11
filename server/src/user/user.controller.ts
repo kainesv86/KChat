@@ -20,16 +20,17 @@ import { monoLogger } from 'mono-utils-core';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('/addfriend')
+  @Get()
   @UseGuards(UserGuard)
-  create(@Req() req: Request, @Body() friendRequestDto: FriendRequestDto) {
-    return this.userService.addFriendByUsername(req.user, friendRequestDto);
+  getUser(@Req() req: Request) {
+    return req.user;
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.userService.findAll();
-  // }
+  @Post('/addfriend')
+  @UseGuards(UserGuard)
+  addFriend(@Req() req: Request, @Body() friendRequestDto: FriendRequestDto) {
+    return this.userService.addFriendByUsername(req.user, friendRequestDto);
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
