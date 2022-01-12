@@ -22,7 +22,4 @@ export class User {
 
   @ManyToMany(() => User, (user) => user.id)
   friends: string[];
-
-  @OneToMany(() => User, (user) => user.username)
-  pendingAddFriends: string[];
 }
