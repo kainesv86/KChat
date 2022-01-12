@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { config } from './config';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { Relationship } from './user/entities/relationship.entity';
 
 const DBConfig = TypeOrmModule.forRoot({
   type: 'mysql',
@@ -16,7 +17,7 @@ const DBConfig = TypeOrmModule.forRoot({
   database: config.DB_NAME,
   synchronize: true,
   keepConnectionAlive: true,
-  entities: [User],
+  entities: [User, Relationship],
 });
 
 @Module({

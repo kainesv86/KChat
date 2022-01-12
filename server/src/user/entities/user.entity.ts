@@ -2,9 +2,11 @@ import {
   Column,
   Entity,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Relationship } from './relationship.entity';
 
 @Entity()
 export class User {
@@ -20,6 +22,6 @@ export class User {
   @Column()
   email: string;
 
-  @ManyToMany(() => User, (user) => user.id)
-  friends: string[];
+  @OneToMany(() => Relationship, (relationship) => relationship.user)
+  relationships: Relationship[];
 }

@@ -1,6 +1,6 @@
 export enum RelationshipStatus {
-  'FRIEND',
-  'BLOCK',
-  'PENDING',
-  'FALSE',
+  FRIEND = 'FRIEND',
+  BLOCK = 'BLOCK',
+  PENDING = 'PENDING',
+  FALSE = 'FALSE',
 }
