@@ -31,7 +31,14 @@ export class UserService {
       friendRequestDto.friendUsername,
     );
     if (!friendUser) return "This user doesn't exist";
+
     if (friendUser.username === user.username) return 'Nope, you are';
+
+    const existRelationship =
+      await this.relationshipRepository.findOne<Relationship>({
+        userId: user.id,
+        friendUserId: friendUser.id,
+      });
 
     const creator = new Relationship();
     creator.user = user;

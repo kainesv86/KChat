@@ -16,10 +16,10 @@ export class Relationship {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.relationships)
+  @ManyToOne(() => User, (user) => user.username)
   user: User;
 
-  @ManyToOne(() => User, (user) => user.relationships)
+  @ManyToOne(() => User, (user) => user.username)
   friendUser: User;
 
   @Column()
