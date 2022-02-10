@@ -1,18 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { monoLogger } from 'mono-utils-core';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { Relationship } from '../relationship/entities/relationship.entity';
 import { RelationshipStatus } from '../relationship/entities/relationship.enum';
-import { RelationshipRepository } from '../relationship/entities/relationship.repository';
 import { User } from './entities/user.entity';
 import { UserRepository } from './entities/user.repository';
+import { RelationshipService } from 'src/relationship/relationship.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly relationshipRepository: RelationshipRepository,
+    private readonly relationshipService: RelationshipService,
   ) {}
   async registerUser(newUser: User): Promise<User> {
     return await this.userRepository.save(newUser);
@@ -34,19 +32,16 @@ export class UserService {
 
     if (friendUser.username === user.username) return 'Nope, you are';
 
-    const existRelationship = await this.relationshipRepository.findOne({
-      user,
-      friendUser,
-    });
+    // const existRelationship = await this.relationshipService.findOne()
 
-    if (existRelationship) return 'You already sent request';
+    // if (existRelationship) return 'You already sent request';
 
     const creator = new Relationship();
     creator.user = user;
     creator.friendUser = friendUser;
     creator.status = RelationshipStatus.PENDING;
 
-    this.relationshipRepository.save(creator);
+    this.relationshipService.addRelationship(creator);
 
     return 'Send request successfully';
   }

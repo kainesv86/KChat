@@ -1,4 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/user/entities/user.entity';
+import { Relationship } from './entities/relationship.entity';
+import { RelationshipStatus } from './entities/relationship.enum';
 import { RelationshipRepository } from './entities/relationship.repository';
 
 @Injectable()
@@ -7,9 +10,36 @@ export class RelationshipService {
     private readonly relationshipRepository: RelationshipRepository,
   ) {}
 
-  async addRelationship() {}
+  async addRelationship(relationship: Relationship): Promise<Relationship> {
+    const existRelationship = this.findOneRelationship(relationship);
+    if (!existRelationship) {
+      return await this.relationshipRepository.save(relationship);
+    }
+    return null;
+  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} relationship`;
+  async findOneRelationship(user, friendUser?: User): Promise<Relationship> {
+    return await this.relationshipRepository.findOne({ user, friendUser });
+  }
+
+  async findRelationship(
+    user?: User,
+    friendUser?: User,
+  ): Promise<Array<Relationship>> {
+    // Get all pending request user friends
+    if (!user) {
+      return await this.relationshipRepository.find({
+        friendUser,
+        status: RelationshipStatus.PENDING,
+      });
+    }
+
+    // Get all friends
+    if (!friendUser) {
+      return await this.relationshipRepository.find({
+        user,
+        status: RelationshipStatus.FRIEND,
+      });
+    }
   }
 }
