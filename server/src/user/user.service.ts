@@ -32,9 +32,10 @@ export class UserService {
 
     if (friendUser.username === user.username) return 'Nope, you are';
 
-    // const existRelationship = await this.relationshipService.findOne()
+    const existRelationship =
+      await this.relationshipService.findOneRelationship(user, friendUser);
 
-    // if (existRelationship) return 'You already sent request';
+    if (existRelationship) return 'You already sent request';
 
     const creator = new Relationship();
     creator.user = user;

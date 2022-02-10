@@ -11,14 +11,10 @@ export class RelationshipService {
   ) {}
 
   async addRelationship(relationship: Relationship): Promise<Relationship> {
-    const existRelationship = this.findOneRelationship(relationship);
-    if (!existRelationship) {
-      return await this.relationshipRepository.save(relationship);
-    }
-    return null;
+    return await this.relationshipRepository.save(relationship);
   }
 
-  async findOneRelationship(user, friendUser?: User): Promise<Relationship> {
+  async findOneRelationship(user, friendUser: User): Promise<Relationship> {
     return await this.relationshipRepository.findOne({ user, friendUser });
   }
 
