@@ -1,3 +1,0 @@
-interface FriendRequestDto {
-  friendUsername: string;
-}

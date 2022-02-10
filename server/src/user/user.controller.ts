@@ -15,6 +15,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserGuard } from '../auth/auth.guard';
 import { Request } from 'express';
 import { monoLogger } from 'mono-utils-core';
+import {
+  FriendRequestDto,
+  FriendPendingStatusDto,
+} from '../relationship/dto/friendRequest';
 
 @Controller('user')
 export class UserController {
@@ -30,6 +34,18 @@ export class UserController {
   @UseGuards(UserGuard)
   addFriend(@Req() req: Request, @Body() friendRequestDto: FriendRequestDto) {
     return this.userService.addFriendByUsername(req.user, friendRequestDto);
+  }
+
+  @Patch('/handlestatus')
+  @UseGuards(UseGuards)
+  handleFriendRequest(
+    @Req() req: Request,
+    @Body() friendPendingStatusDto: FriendPendingStatusDto,
+  ) {
+    return this.userService.handleRelationship(
+      req.user,
+      friendPendingStatusDto,
+    );
   }
 
   // @Get(':id')

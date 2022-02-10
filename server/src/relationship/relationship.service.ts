@@ -18,6 +18,14 @@ export class RelationshipService {
     return await this.relationshipRepository.findOne({ user, friendUser });
   }
 
+  async updateRelationshipStatus(
+    user,
+    friendUser: User,
+    status: RelationshipStatus,
+  ): Promise<void> {
+    await this.relationshipRepository.save({ user, friendUser, status });
+  }
+
   async findRelationship(
     user?: User,
     friendUser?: User,

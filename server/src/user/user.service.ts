@@ -5,6 +5,10 @@ import { RelationshipStatus } from '../relationship/entities/relationship.enum';
 import { User } from './entities/user.entity';
 import { UserRepository } from './entities/user.repository';
 import { RelationshipService } from 'src/relationship/relationship.service';
+import {
+  FriendPendingStatusDto,
+  FriendRequestDto,
+} from 'src/relationship/dto/friendRequest';
 
 @Injectable()
 export class UserService {
@@ -45,6 +49,35 @@ export class UserService {
     this.relationshipService.addRelationship(creator);
 
     return 'Send request successfully';
+  }
+
+  async handleRelationship(
+    user: User,
+    friendPendingStatusDto: FriendPendingStatusDto,
+  ) {
+    const { friendUsername, status } = friendPendingStatusDto;
+
+    const friendUser = await this.findUserByUsername(friendUsername);
+
+    if (
+      status === RelationshipStatus.NONE ||
+      status === RelationshipStatus.FRIEND
+    ) {
+      //For denied the request or accept
+      this.relationshipService.updateRelationshipStatus(
+        user,
+        friendUser,
+        status,
+      );
+
+      //For set relationship to none or friend
+      this.relationshipService.updateRelationshipStatus(
+        friendUser,
+        user,
+        status,
+      );
+      return;
+    }
   }
 
   // create(createUserDto: CreateUserDto) {
