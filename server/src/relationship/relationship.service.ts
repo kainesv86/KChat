@@ -19,11 +19,17 @@ export class RelationshipService {
   }
 
   async updateRelationshipStatus(
-    user,
+    user: User,
     friendUser: User,
     status: RelationshipStatus,
   ): Promise<void> {
-    await this.relationshipRepository.save({ user, friendUser, status });
+    const relationship = await this.relationshipRepository.findOne({
+      user,
+      friendUser,
+    });
+    relationship.status = status;
+
+    await this.relationshipRepository.save(relationship);
   }
 
   async findRelationship(

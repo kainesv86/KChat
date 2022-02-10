@@ -5,10 +5,7 @@ import { RelationshipStatus } from '../relationship/entities/relationship.enum';
 import { User } from './entities/user.entity';
 import { UserRepository } from './entities/user.repository';
 import { RelationshipService } from 'src/relationship/relationship.service';
-import {
-  FriendPendingStatusDto,
-  FriendRequestDto,
-} from 'src/relationship/dto/friendRequest';
+import { FriendRequestDto } from 'src/relationship/dto/friendRequest';
 
 @Injectable()
 export class UserService {
@@ -48,14 +45,23 @@ export class UserService {
 
     this.relationshipService.addRelationship(creator);
 
+    const existRelationshipByFriend =
+      await this.relationshipService.findOneRelationship(friendUser, user);
+
+    //Create relationship if doesn't have one
+    if (!existRelationshipByFriend) {
+      const receiver = new Relationship();
+      receiver.user = friendUser;
+      receiver.friendUser = user;
+      receiver.status = RelationshipStatus.NONE;
+      this.relationshipService.addRelationship(receiver);
+    }
+
     return 'Send request successfully';
   }
 
-  async handleRelationship(
-    user: User,
-    friendPendingStatusDto: FriendPendingStatusDto,
-  ) {
-    const { friendUsername, status } = friendPendingStatusDto;
+  async handleRelationship(user: User, friendRequestDto: FriendRequestDto) {
+    const { friendUsername, status } = friendRequestDto;
 
     const friendUser = await this.findUserByUsername(friendUsername);
 
