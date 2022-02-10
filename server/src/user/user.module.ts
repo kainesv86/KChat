@@ -4,10 +4,11 @@ import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from './entities/user.repository';
 import { AuthModule } from 'src/auth/auth.module';
+import { RelationshipRepository } from './entities/relationship.repository';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserRepository]),
+    TypeOrmModule.forFeature([UserRepository, RelationshipRepository]),
     forwardRef(() => AuthModule),
   ],
   controllers: [UserController],
