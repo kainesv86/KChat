@@ -9,7 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { RelationshipStatus } from './relationship.enum';
-import { User } from './user.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Relationship {

@@ -1,11 +1,7 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
   Res,
   BadRequestException,
   Req,
@@ -49,6 +45,8 @@ export class AuthController {
     newUser.username = username;
     newUser.password = await this.authService.encryptString(password);
     newUser.email = email;
+    // newUser.pendingAddFriends = new Array<string>();
+    // newUser.friends = new Array<string>();
     const insertedUser = await this.userService.registerUser(newUser);
     const accessToken = await this.authService.createAccessToken(insertedUser);
 

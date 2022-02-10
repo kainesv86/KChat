@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { monoLogger } from 'mono-utils-core';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Relationship } from './entities/relationship.entity';
-import { RelationshipStatus } from './entities/relationship.enum';
-import { RelationshipRepository } from './entities/relationship.repository';
+import { Relationship } from '../relationship/entities/relationship.entity';
+import { RelationshipStatus } from '../relationship/entities/relationship.enum';
+import { RelationshipRepository } from '../relationship/entities/relationship.repository';
 import { User } from './entities/user.entity';
 import { UserRepository } from './entities/user.repository';
 
@@ -34,11 +34,12 @@ export class UserService {
 
     if (friendUser.username === user.username) return 'Nope, you are';
 
-    const existRelationship =
-      await this.relationshipRepository.findOne<Relationship>({
-        userId: user.id,
-        friendUserId: friendUser.id,
-      });
+    const existRelationship = await this.relationshipRepository.findOne({
+      user,
+      friendUser,
+    });
+
+    if (existRelationship) return 'You already sent request';
 
     const creator = new Relationship();
     creator.user = user;
