@@ -69,7 +69,7 @@ export class UserService {
       status === RelationshipStatus.NONE ||
       status === RelationshipStatus.FRIEND
     ) {
-      //For denied the request or accept
+      //For denied the request or accept or unfriend
       this.relationshipService.updateRelationshipStatus(
         user,
         friendUser,
@@ -84,6 +84,26 @@ export class UserService {
       );
       return;
     }
+  }
+
+  async getUsersRelationByStatus(
+    user: User,
+    status: RelationshipStatus,
+  ): Promise<User[]> {
+    const query = await this.userRepository
+      .createQueryBuilder('user')
+      .select(['user.id', 'user.username', 'user.email'])
+      .leftJoin('user.relationships', 'relationships')
+      .where('relationships.friendUserId = :friendUserId', {
+        friendUserId: user.id,
+      })
+      .andWhere('relationships.status = :status', {
+        status,
+      });
+
+    const result = await query.getMany();
+
+    return result;
   }
 
   // create(createUserDto: CreateUserDto) {

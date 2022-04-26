@@ -35,12 +35,13 @@ export class RelationshipService {
   async findRelationship(
     user?: User,
     friendUser?: User,
+    status?: RelationshipStatus,
   ): Promise<Array<Relationship>> {
     // Get all pending request user friends
     if (!user) {
       return await this.relationshipRepository.find({
         friendUser,
-        status: RelationshipStatus.PENDING,
+        status,
       });
     }
 
@@ -48,7 +49,7 @@ export class RelationshipService {
     if (!friendUser) {
       return await this.relationshipRepository.find({
         user,
-        status: RelationshipStatus.FRIEND,
+        status,
       });
     }
   }
