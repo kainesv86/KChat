@@ -28,13 +28,13 @@ export class UserController {
     return req.user;
   }
 
-  @Post('/add-friend')
+  @Post('/friends/add-friend')
   @UseGuards(UserGuard)
   addFriend(@Req() req: Request, @Body() friendRequestDto: FriendRequestDto) {
     return this.userService.addFriendByUsername(req.user, friendRequestDto);
   }
 
-  @Patch('/handle-status')
+  @Patch('/friends/handle-status')
   @UseGuards(UserGuard)
   handleFriendRequest(
     @Req() req: Request,
@@ -46,7 +46,7 @@ export class UserController {
     );
   }
 
-  @Get('/status=:status')
+  @Get('/friends/status=:status')
   @UseGuards(UserGuard)
   getUserByStatus(
     @Req() req: Request,
