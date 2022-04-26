@@ -17,34 +17,34 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({ isActive = false, setAct
 
         return (
                 <div className="flex items-center px-4 sm:px-8 sm:py-10 py-4 z-10 bg-[#c8c3ad]">
-                        <div className="sm:hidden block">
+                        <div className="block sm:hidden">
                                 <BurgerButton func={() => setActive(!isActive)} />
                         </div>
 
                         {isLogin ? (
-                                <div className="font-semibold text-lg text-gray-900 sm:block hidden">
-                                        <a className="mr-6 hover:bg-gray-900/50 hover:text-gray-200 rounded px-2" href="">
+                                <div className="hidden text-lg font-semibold text-gray-900 sm:block">
+                                        <a className="px-2 mr-6 rounded hover:bg-gray-900/50 hover:text-gray-200" href="">
                                                 All
                                         </a>
-                                        <a className="mr-6 hover:bg-gray-900/50 hover:text-gray-200 rounded px-2" href="">
+                                        <a className="px-2 mr-6 rounded hover:bg-gray-900/50 hover:text-gray-200" href="/user/friends/pending">
                                                 Pending
                                         </a>
-                                        <a className="mr-6 hover:bg-gray-900/50 hover:text-gray-200 rounded px-2" href="">
+                                        <a className="px-2 mr-6 rounded hover:bg-gray-900/50 hover:text-gray-200" href="">
                                                 Blocked
                                         </a>
-                                        <a className="mr-6 bg-green-600 text-white px-2 rounded" href="">
+                                        <a className="px-2 mr-6 text-white bg-green-600 rounded" href="">
                                                 Add Friend
                                         </a>
                                 </div>
                         ) : (
-                                <div className="font-semibold text-lg text-gray-900 sm:block hidden">
-                                        <Link href="/user/login">
-                                                <a className="mr-6 hover:bg-gray-900/50 hover:text-gray-200 rounded px-2" href="/user/login">
+                                <div className="hidden text-lg font-semibold text-gray-900 sm:block">
+                                        <Link href="/auth/login">
+                                                <a className="px-2 mr-6 rounded hover:bg-gray-900/50 hover:text-gray-200" href="/auth/login">
                                                         Login
                                                 </a>
                                         </Link>
-                                        <Link href="/user/register">
-                                                <a className="mr-6 hover:bg-gray-900/50 hover:text-gray-200 rounded px-2" href="user/register">
+                                        <Link href="/auth/register">
+                                                <a className="px-2 mr-6 rounded hover:bg-gray-900/50 hover:text-gray-200" href="/auth/register">
                                                         Register
                                                 </a>
                                         </Link>
