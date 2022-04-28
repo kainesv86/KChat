@@ -11,26 +11,22 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../store";
 import { authActions } from "../store/auth";
+import GetCurrentUserWrapper from "../common/HOC/getCurrentUserWrapper";
 
 function MyApp({ Component, pageProps }: AppProps) {
         const [activeBurger, setActiveBurger] = React.useState<boolean>(false);
-        const cookies = new Cookies();
-
-        React.useEffect(() => {
-                console.log("Hello");
-                const accessToken = cookies.get("access-token");
-                if (accessToken) store.dispatch(authActions.updateLogin());
-        }, [cookies]);
 
         return (
                 <Provider store={store}>
-                        <div className="bg-yohra h-screen flex relative">
-                                <SideBar isActive={activeBurger} setActive={setActiveBurger} />
-                                <div className="flex-1 flex flex-col">
-                                        <NavBar isActive={activeBurger} setActive={setActiveBurger} />
-                                        <Component {...pageProps} />
+                        <GetCurrentUserWrapper>
+                                <div className="bg-yohra h-screen flex relative">
+                                        <SideBar isActive={activeBurger} setActive={setActiveBurger} />
+                                        <div className="flex-1 flex flex-col">
+                                                <NavBar isActive={activeBurger} setActive={setActiveBurger} />
+                                                <Component {...pageProps} />
+                                        </div>
                                 </div>
-                        </div>
+                        </GetCurrentUserWrapper>
                 </Provider>
         );
 }
