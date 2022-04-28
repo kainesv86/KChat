@@ -65,7 +65,7 @@ export class AuthController {
 
     if (!isUserExist)
       throw new BadRequestException({
-        error: { errorMessage: 'Username or password are incorrect' },
+        details: { username: 'Username or password are incorrect' },
       });
 
     const isCorrect = await this.authService.decryptString(
@@ -75,7 +75,7 @@ export class AuthController {
 
     if (!isCorrect)
       throw new BadRequestException({
-        error: { errorMessage: 'Username or password are incorrect' },
+        details: { username: 'Username or password are incorrect' },
       });
 
     const accessToken = await this.authService.createAccessToken(isUserExist);
