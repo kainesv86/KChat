@@ -9,7 +9,6 @@ import ButtonForm from "../../components/common/buttonForm";
 
 import authApi from "../../api/authApi";
 import useFormError from "../../common/hooks/useFormError";
-import RouteProtected from "../../common/HOC/routerProtedtedWrapper";
 import { store } from "../../store";
 import { authActions } from "../../store/auth";
 import { useRouter } from "next/router";
@@ -36,33 +35,19 @@ const Login: React.FunctionComponent<LoginProps> = () => {
         };
 
         return (
-                <RouteProtected>
-                        <div className="flex justify-center flex-1 sm:items-center">
-                                <div className="w-full sm:w-auto">
-                                        <Form handleSubmit={handleSubmit(onSubmit)}>
-                                                <p className="mb-2 text-3xl font-semibold text-center text-gray-900/80">Login</p>
-                                                <p className="mb-8 text-sm font-medium text-center text-gray-700">We will let you in!</p>
-                                                <InputField
-                                                        label="Username"
-                                                        type="text"
-                                                        name="username"
-                                                        register={register}
-                                                        error={errors.username}
-                                                />
-                                                <InputField
-                                                        label="Password"
-                                                        type="password"
-                                                        name="password"
-                                                        register={register}
-                                                        error={errors.password}
-                                                />
-                                                <div className="mt-4">
-                                                        <ButtonForm type="submit" label="Login" name="login" />
-                                                </div>
-                                        </Form>
-                                </div>
+                <div className="flex justify-center flex-1 sm:items-center">
+                        <div className="w-full sm:w-auto">
+                                <Form handleSubmit={handleSubmit(onSubmit)}>
+                                        <p className="mb-2 text-3xl font-semibold text-center text-gray-900/80">Login</p>
+                                        <p className="mb-8 text-sm font-medium text-center text-gray-700">We will let you in!</p>
+                                        <InputField label="Username" type="text" name="username" register={register} error={errors.username} />
+                                        <InputField label="Password" type="password" name="password" register={register} error={errors.password} />
+                                        <div className="mt-4">
+                                                <ButtonForm type="submit" label="Login" name="login" />
+                                        </div>
+                                </Form>
                         </div>
-                </RouteProtected>
+                </div>
         );
 };
 

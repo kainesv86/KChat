@@ -9,13 +9,13 @@ const initialState: AuthState = {
         id: "",
         avatarUrl: "",
         description: "",
-        isLogin: false,
+        isLogin: true,
 };
 
 const auth = createSlice({
         name: "auth",
         initialState,
-        reducers: { resetState: () => ({ ...initialState }), updateLogin: (state) => ({ ...state, isLogin: true }) },
+        reducers: { resetState: () => ({ ...initialState, isLogin: false }), updateLogin: (state) => ({ ...state, isLogin: true }) },
 
         extraReducers: (builder) => {
                 builder.addCase(authThunk.loginUser.fulfilled, (state) => ({ ...state, isLogin: true }));

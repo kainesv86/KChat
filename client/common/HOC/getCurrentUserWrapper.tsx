@@ -14,6 +14,7 @@ const GetCurrentUserWrapper: React.FunctionComponent<GetCurrentUserWrapperProps>
                 if (token) {
                         store.dispatch(authActions.updateLogin());
                 } else {
+                        store.dispatch(authActions.resetState());
                 }
         }, []);
         return <>{children}</>;

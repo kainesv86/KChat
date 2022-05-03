@@ -6,27 +6,20 @@ import { ApiState } from "../../common/interface/api.interface";
 import { RelationshipStatus, User } from "../../common/model/user";
 import { RootState } from "../../store";
 import Image from "next/image";
-import authApi from "../../api/authApi";
 
-interface AddFriendsProps {}
+interface FriendsProps {}
 
-const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
+const Friends: React.FunctionComponent<FriendsProps> = () => {
         const [users, setUsers] = React.useState<User[]>([]);
         const apiState = useSelector<RootState, ApiState>((state) => state.api);
 
-        const getData = React.useCallback(() => {
+        React.useEffect(() => {
                 const getFriends = async () => {
-                        const users = await userApi.getFriendByStatus(RelationshipStatus.PENDING);
+                        const users = await userApi.getFriendByStatus(RelationshipStatus.FRIEND);
                         setUsers(users);
                 };
-
-                if (!apiState.isLoading) getFriends();
-        }, [apiState.isLoading]);
-
-        const handleOnRequest = async (username: string, status: RelationshipStatus) => {
-                await userApi.handleFriendStatus(username, status);
-                getData();
-        };
+                getFriends();
+        }, []);
 
         return (
                 <RouteProtection>
@@ -38,8 +31,9 @@ const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
                                                                 <div className="flex">
                                                                         <div className="w-10 h-10 mr-4">
                                                                                 <Image
+                                                                                        width={40}
+                                                                                        height={40}
                                                                                         alt={user.username}
-                                                                                        className="w-full h-full"
                                                                                         src={
                                                                                                 "https://i.ibb.co/PY0ZCXS/49234258-2171577439772648-3163590464041385984-n.jpg"
                                                                                         }
@@ -52,7 +46,7 @@ const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
                                                                         </div>
                                                                 </div>
                                                                 <div className="flex space-x-2">
-                                                                        <button
+                                                                        {/* <button
                                                                                 className="block w-10 h-10 bg-green-500 rounded-full"
                                                                                 onClick={() =>
                                                                                         handleOnRequest(user.username, RelationshipStatus.FRIEND)
@@ -69,7 +63,7 @@ const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
                                                                                 onClick={() =>
                                                                                         handleOnRequest(user.username, RelationshipStatus.BLOCK)
                                                                                 }
-                                                                        ></button>
+                                                                        ></button> */}
                                                                 </div>
                                                         </div>
                                                 ))}
@@ -82,4 +76,4 @@ const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
         );
 };
 
-export default AddFriends;
+export default Friends;
