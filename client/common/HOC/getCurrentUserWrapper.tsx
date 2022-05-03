@@ -10,7 +10,6 @@ const GetCurrentUserWrapper: React.FunctionComponent<GetCurrentUserWrapperProps>
         React.useEffect(() => {
                 const cookies = new Cookies();
                 const token = cookies.get("access-token");
-                console.log("Token: " + token);
 
                 if (token) {
                         store.dispatch(authActions.updateLogin());

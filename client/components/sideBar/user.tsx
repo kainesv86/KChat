@@ -1,15 +1,15 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
+import { AuthState } from "../../common/interface/auth.dto";
+import { RootState } from "../../store";
 
-export interface UserFriendProps {
-        avatarUrl?: string;
-        username?: string;
-        name: string;
-        description?: string;
-}
+export interface UserProps {}
 
-const UserFriend: React.FunctionComponent<UserFriendProps> = ({ avatarUrl, description, name, username, children }) => {
+const User: React.FunctionComponent<UserProps> = ({ children }) => {
+        const authState = useSelector<RootState, AuthState>((state) => state.auth);
+        const { avatarUrl, description, name, username } = authState;
         return (
-                <div className="transform cursor-pointer group">
+                <div className="block mb-2 transform cursor-pointer group">
                         <span className="block w-0 h-px mb-px bg-gray-900 group-hover:w-full"></span>
                         <div className="relative flex flex-col">
                                 <div className="absolute block w-0 h-full duration-500 transform group-hover:w-full bg-gray-900/50"></div>
@@ -23,7 +23,9 @@ const UserFriend: React.FunctionComponent<UserFriendProps> = ({ avatarUrl, descr
                                                 </div>
                                         ) : null}
                                         <div className="flex flex-col justify-center text-left">
-                                                <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">{name}</p>
+                                                <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">
+                                                        {name ? name : username}
+                                                </p>
                                                 {description ? (
                                                         <p className="text-xs font-semibold text-gray-600 group-hover:text-gray-200">{description}</p>
                                                 ) : null}
@@ -35,4 +37,4 @@ const UserFriend: React.FunctionComponent<UserFriendProps> = ({ avatarUrl, descr
         );
 };
 
-export default UserFriend;
+export default User;

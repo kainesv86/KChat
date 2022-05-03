@@ -8,7 +8,6 @@ import authThunk from "../store/auth/userthunk";
 const Home: NextPage = () => {
         const { isLogin } = useSelector<RootState, AuthState>((state) => state.auth);
         React.useEffect(() => {
-                console.log("hello", isLogin);
                 if (isLogin) store.dispatch(authThunk.getUserInfo());
         }, [isLogin]);
         return (

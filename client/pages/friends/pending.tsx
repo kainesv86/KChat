@@ -4,9 +4,9 @@ import userApi from "../../api/userApi";
 import RouteProtected from "../../common/HOC/routerProtedtedWrapper";
 import { RelationshipStatus, User } from "../../common/model/user";
 
-interface FriendsProps {}
+interface AddFriendsProps {}
 
-const Friends: React.FunctionComponent<FriendsProps> = () => {
+const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
         const [users, setUsers] = React.useState<User[]>([]);
 
         const handleOnRequest = async (username: string, status: RelationshipStatus) => {
@@ -77,4 +77,4 @@ const Friends: React.FunctionComponent<FriendsProps> = () => {
         );
 };
 
-export default Friends;
+export default AddFriends;

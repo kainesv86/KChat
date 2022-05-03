@@ -19,9 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         return (
                 <Provider store={store}>
                         <GetCurrentUserWrapper>
-                                <div className="bg-yohra h-screen flex relative">
+                                <div className="relative flex h-screen bg-yohra">
                                         <SideBar isActive={activeBurger} setActive={setActiveBurger} />
-                                        <div className="flex-1 flex flex-col">
+                                        <div className="flex flex-col flex-1">
                                                 <NavBar isActive={activeBurger} setActive={setActiveBurger} />
                                                 <Component {...pageProps} />
                                         </div>

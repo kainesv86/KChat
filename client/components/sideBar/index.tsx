@@ -10,6 +10,7 @@ import RegisterIcon from "../../public/asset/register";
 import { RootState } from "../../store";
 import UserFriend from "./userFriend";
 import { UserFriendProps } from "./userFriend";
+import User from "./user";
 
 interface SideBarProps {
         isActive?: boolean;
@@ -39,10 +40,10 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                 isActive ? "" : "-translate-x-full"
                         }  sm:translate-x-0`}
                 >
-                        <ul className={`flex flex-col h-screen overflow-hidden p-4`}>
-                                <li className="flex justify-center h-16 mb-2" onClick={() => setActive(false)}>
+                        <ul className={`flex flex-col h-screen overflow-hidden p-4 space-y-2`}>
+                                <li className="flex justify-center h-16" onClick={() => setActive(false)}>
                                         <Link href="/">
-                                                <div className="w-16 rounded-full hover:bg-yellow-100/25 cursor-pointer">
+                                                <div className="w-16 rounded-full cursor-pointer hover:bg-yellow-100/25">
                                                         <KChatLogo />
                                                 </div>
                                         </Link>
@@ -64,7 +65,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                           ))
                                         : null}
 
-                                <div className="sm:hidden block">
+                                <div className="block sm:hidden">
                                         {isLogin ? null : (
                                                 <div className="flex flex-col">
                                                         <div onClick={() => setActive(false)}>
@@ -89,6 +90,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                         )}
                                 </div>
                         </ul>
+                        <User />
                 </div>
         );
 };

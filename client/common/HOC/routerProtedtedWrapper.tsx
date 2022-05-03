@@ -18,11 +18,12 @@ const RouteProtected: React.FunctionComponent<RouteProtectedProps> = ({ isNeedLo
         const router = useRouter();
 
         React.useEffect(() => {
+                console.log("Is Login:" + authState.isLogin);
                 if (!apiState.isLoading) {
                         if (!authState.isLogin && isNeedLogin) router.push(routers.login.link);
                         else if (!isNeedLogin && authState.isLogin) router.push(routers.home.link);
                 }
-        }, [authState.isLogin]);
+        }, [authState]);
         return <>{children}</>;
 };
 

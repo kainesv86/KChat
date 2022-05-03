@@ -10,6 +10,10 @@ import ButtonForm from "../../components/common/buttonForm";
 import authApi from "../../api/authApi";
 import useFormError from "../../common/hooks/useFormError";
 import RouteProtected from "../../common/HOC/routerProtedtedWrapper";
+import { store } from "../../store";
+import { authActions } from "../../store/auth";
+import { useRouter } from "next/router";
+import routers from "../../common/constants/routers";
 
 interface LoginProps {}
 
@@ -21,10 +25,14 @@ const defaultValues: UserLoginDto = {
 const Login: React.FunctionComponent<LoginProps> = () => {
         const { register, handleSubmit } = useForm<UserLoginDto>();
         const errors = useFormError<UserLoginDto>(defaultValues);
+        const router = useRouter();
 
         const onSubmit = async (data: UserLoginDto) => {
                 const res = await authApi.loginUser(data);
-                console.log(res);
+                if (res.status == 201) {
+                        store.dispatch(authActions.updateLogin());
+                        router.push(routers.home.link);
+                }
         };
 
         return (
