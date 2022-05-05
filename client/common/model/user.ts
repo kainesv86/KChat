@@ -13,3 +13,7 @@ export enum RelationshipStatus {
         BLOCK = "BLOCK",
         PENDING = "PENDING",
 }
+
+export interface AddFriendsDto {
+        friendUsername: string;
+}

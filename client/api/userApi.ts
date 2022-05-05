@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { RelationshipStatus, User } from "../common/model/user";
+import { AddFriendsDto, RelationshipStatus, User } from "../common/model/user";
 import http from "./axiosCommon";
 
 export class UserAPI {
@@ -7,13 +7,18 @@ export class UserAPI {
         async getFriendByStatus(status: RelationshipStatus) {
                 const url = `${this.prefix + "/friends/"}status=${status}`;
                 const res = await this.apiCall.get<User[]>(url);
-                console.log(res.data);
                 return res.data;
         }
 
         async handleFriendStatus(username: string, status: RelationshipStatus) {
                 const url = `${this.prefix + "/friends/handle-status"}`;
                 await this.apiCall.patch(url, { friendUsername: username, status });
+        }
+
+        async handleAddFriend(data: AddFriendsDto) {
+                const url = `${this.prefix + "/friends/add"}`;
+                const res = await this.apiCall.post(url, data);
+                return res.data;
         }
 }
 

@@ -2,22 +2,28 @@ import * as React from "react";
 import { Component } from "react";
 
 interface InputFieldProps {
-        label: string;
+        label?: string;
         name: string;
         register?: any;
         type?: "password" | "text";
         error?: string;
+        className?: string;
 }
 
 const InputField: React.FunctionComponent<InputFieldProps> = ({ label, register, type = "text", name, error }) => {
         return (
                 <div className="group focus-within:text-gray-100 transform duration-300 mb-2 text-gray-800">
                         <div className="hover:bg-red-500/50 focus-within:bg-red-500/50  flex flex-col duration-300">
-                                <div className="px-2 py-1">
-                                        <label htmlFor={name} className="group-hover:text-gray-100 font-semibold text-base cursor-pointer w-full ">
-                                                {label}
-                                        </label>
-                                </div>
+                                {label ? (
+                                        <div className="px-2 py-1">
+                                                <label
+                                                        htmlFor={name}
+                                                        className="group-hover:text-gray-100 font-semibold text-base cursor-pointer w-full "
+                                                >
+                                                        {label}
+                                                </label>
+                                        </div>
+                                ) : null}
                                 <input
                                         id={name}
                                         type={type}

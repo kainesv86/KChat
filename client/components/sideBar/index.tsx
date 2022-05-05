@@ -12,6 +12,8 @@ import UserFriend from "./userFriend";
 import { UserFriendProps } from "./userFriend";
 import User from "./user";
 
+import routers from "../../common/constants/routers";
+
 interface SideBarProps {
         isActive?: boolean;
         setActive: Function;
@@ -69,21 +71,17 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                         {isLogin ? null : (
                                                 <div className="flex flex-col">
                                                         <div onClick={() => setActive(false)}>
-                                                                <Link href="/user/login">
-                                                                        <a href="/user/login">
-                                                                                <UserFriend name="Login" username="">
-                                                                                        <LoginIcon />
-                                                                                </UserFriend>
-                                                                        </a>
+                                                                <Link href={routers.login.link}>
+                                                                        <UserFriend name="Login" username="">
+                                                                                <LoginIcon />
+                                                                        </UserFriend>
                                                                 </Link>
                                                         </div>
                                                         <div onClick={() => setActive(false)}>
-                                                                <Link href="/user/register">
-                                                                        <a href="/user/register">
-                                                                                <UserFriend name="Register" username="">
-                                                                                        <RegisterIcon />
-                                                                                </UserFriend>
-                                                                        </a>
+                                                                <Link href={routers.register.link}>
+                                                                        <UserFriend name="Register" username="">
+                                                                                <RegisterIcon />
+                                                                        </UserFriend>
                                                                 </Link>
                                                         </div>
                                                 </div>
