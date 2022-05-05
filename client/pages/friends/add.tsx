@@ -20,7 +20,7 @@ const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
                         <h2 className="text-lg font-semibold text-gray-900">Add Friend</h2>
                         <p className="text-base font-semibold text-gray-600">You can add a friend in here by their username</p>
                         <form onSubmit={handleSubmit(handleOnSubmit)} className="flex flex-col">
-                                <InputField register={register} name={"friendUsername"} />
+                                <InputField register={register} name={"friendUsername"} className="w-full sm:max-w-3xl" />
                                 <ButtonForm type="submit" label="Add" name="add" className="w-full sm:max-w-xs" />
                         </form>
                 </div>

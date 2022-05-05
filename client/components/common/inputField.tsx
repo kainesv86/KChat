@@ -10,9 +10,9 @@ interface InputFieldProps {
         className?: string;
 }
 
-const InputField: React.FunctionComponent<InputFieldProps> = ({ label, register, type = "text", name, error }) => {
+const InputField: React.FunctionComponent<InputFieldProps> = ({ label, register, type = "text", name, error, className }) => {
         return (
-                <div className="group focus-within:text-gray-100 transform duration-300 mb-2 text-gray-800">
+                <div className={`group focus-within:text-gray-100 transform duration-300 mb-2 text-gray-800 ${className}`}>
                         <div className="hover:bg-red-500/50 focus-within:bg-red-500/50  flex flex-col duration-300">
                                 {label ? (
                                         <div className="px-2 py-1">
