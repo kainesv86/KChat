@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../common/interface/auth.dto";
-import authThunk from "./userthunk";
+import { userThunk } from "./userthunk";
 
 const initialState: AuthState = {
         username: "",
@@ -18,9 +18,7 @@ const auth = createSlice({
         reducers: { resetState: () => ({ ...initialState, isLogin: false }), updateLogin: (state) => ({ ...state, isLogin: true }) },
 
         extraReducers: (builder) => {
-                builder.addCase(authThunk.loginUser.fulfilled, (state) => ({ ...state, isLogin: true }));
-                builder.addCase(authThunk.registerUser.fulfilled, (state) => ({ ...state, isLogin: true }));
-                builder.addCase(authThunk.getUserInfo.fulfilled, (state, { payload }) => {
+                builder.addCase(userThunk.getCurrentUser.fulfilled, (state, { payload }) => {
                         const newState = { ...state };
                         newState.name = payload.name;
                         newState.username = payload.username;
@@ -31,7 +29,6 @@ const auth = createSlice({
                         newState.isLogin = true;
                         return newState;
                 });
-                builder.addCase(authThunk.logoutUser.fulfilled, (state) => ({ ...state, initialState }));
         },
 });
 

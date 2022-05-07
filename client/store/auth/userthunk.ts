@@ -1,30 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AuthState, UserLoginDto, UserRegisterDto } from "../../common/interface/auth.dto";
-import { AuthAPI, authApi } from "../../api/authApi";
+import http from "../../api/axiosCommon";
+import { User } from "../../common/model/user";
 
-class AuthThunk {
-        constructor(private readonly apiCall: AuthAPI) {}
-
-        loginUser = createAsyncThunk<null, UserLoginDto>("UserLoginDto", async (input) => {
-                await this.apiCall.loginUser(input);
-                return null;
-        });
-
-        registerUser = createAsyncThunk<null, UserRegisterDto>("UserRegisterDto", async (input) => {
-                await this.apiCall.registerUser(input);
-                return null;
-        });
-
-        getUserInfo = createAsyncThunk<AuthState, void>("AuthState", async () => {
-                const res = await this.apiCall.getUserInfo();
-                return res.data;
-        });
-
-        logoutUser = createAsyncThunk<void, void>("LogoutState", async () => {
-                await this.apiCall.logoutUser();
-        });
-}
-
-export const authThunk = new AuthThunk(authApi);
-
-export default authThunk;
+export const userThunk = {
+        getCurrentUser: createAsyncThunk<User, void>("getCurrentUser", async (_, { rejectWithValue }) => {
+                try {
+                        const res = await http.get<User>("/user/me");
+                        return res.data;
+                } catch (error) {
+                        return rejectWithValue(null);
+                }
+        }),
+};

@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Relationship } from '../../relationship/entities/relationship.entity';
 
 @Entity()
@@ -17,10 +10,19 @@ export class User {
   username: string;
 
   @Column()
+  name: string;
+
+  @Column()
   password: string;
 
   @Column()
   email: string;
+
+  @Column()
+  avatarUrl: string;
+
+  @Column()
+  description: string;
 
   @OneToMany(() => Relationship, (relationship) => relationship.user)
   relationships: Relationship[];

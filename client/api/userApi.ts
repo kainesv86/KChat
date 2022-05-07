@@ -19,6 +19,10 @@ export const userApi = {
                 const res = await http.post(url, data);
                 return res.data;
         },
-        getUserInfo: async () => {},
+        getUserInfo: async () => {
+                const url = `${prefix + "/me"}`;
+                const res = await http.get<User>(url);
+                return res;
+        },
 };
 export default userApi;

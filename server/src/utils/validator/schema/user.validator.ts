@@ -22,5 +22,9 @@ export function userJoiSchema(field: keyof User) {
         .messages(StringVnLang);
     case 'email':
       return Joi.string().min(5).max(40).email().messages(StringVnLang);
+    case 'avatarUrl':
+      return Joi.string().trim().messages(StringVnLang);
+    case 'description':
+      return Joi.string().min(0).max(50).messages(StringVnLang);
   }
 }
