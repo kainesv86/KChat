@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { Relationship } from './relationship/entities/relationship.entity';
 import { RelationshipModule } from './relationship/relationship.module';
+import { ChatModule } from './chat/chat.module';
 
 const DBConfig = TypeOrmModule.forRoot({
   type: 'mysql',
@@ -29,6 +30,7 @@ const DBConfig = TypeOrmModule.forRoot({
     AuthModule,
     UserModule,
     RelationshipModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
