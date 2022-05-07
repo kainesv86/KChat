@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { UserLoginDto } from "../../common/interface/auth.dto";
 import ButtonForm from "../../components/common/buttonForm";
 
-import authApi from "../../api/authApi";
+import { authApi } from "../../api/authApi";
 import useFormError from "../../common/hooks/useFormError";
 import { store } from "../../store";
 import { authActions } from "../../store/auth";

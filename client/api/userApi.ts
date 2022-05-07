@@ -1,26 +1,24 @@
-import { AxiosInstance } from "axios";
 import { AddFriendsDto, RelationshipStatus, User } from "../common/model/user";
 import http from "./axiosCommon";
 
-export class UserAPI {
-        constructor(private readonly apiCall: AxiosInstance, readonly prefix: string) {}
-        async getFriendByStatus(status: RelationshipStatus) {
-                const url = `${this.prefix + "/friends/"}status=${status}`;
-                const res = await this.apiCall.get<User[]>(url);
+const prefix = "/user";
+
+export const userApi = {
+        getFriendByStatus: async (status: RelationshipStatus) => {
+                const url = `${prefix + "/friends/"}status=${status}`;
+                const res = await http.get<User[]>(url);
                 return res.data;
-        }
+        },
 
-        async handleFriendStatus(username: string, status: RelationshipStatus) {
-                const url = `${this.prefix + "/friends/handle-status"}`;
-                await this.apiCall.patch(url, { friendUsername: username, status });
-        }
-
-        async handleAddFriend(data: AddFriendsDto) {
-                const url = `${this.prefix + "/friends/add"}`;
-                const res = await this.apiCall.post(url, data);
+        handleFriendStatus: async (username: string, status: RelationshipStatus) => {
+                const url = `${prefix + "/friends/handle-status"}`;
+                await http.patch(url, { friendUsername: username, status });
+        },
+        handleAddFriend: async (data: AddFriendsDto) => {
+                const url = `${prefix + "/friends/add"}`;
+                const res = await http.post(url, data);
                 return res.data;
-        }
-}
-
-export const userApi = new UserAPI(http, "/user");
+        },
+        getUserInfo: async () => {},
+};
 export default userApi;

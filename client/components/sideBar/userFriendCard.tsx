@@ -23,10 +23,13 @@ const UserFriend: React.FunctionComponent<UserFriendProps> = ({ avatarUrl, descr
                                                 </div>
                                         ) : null}
                                         <div className="flex flex-col justify-center text-left">
-                                                <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">{name}</p>
-                                                {description ? (
-                                                        <p className="text-xs font-semibold text-gray-600 group-hover:text-gray-200">{description}</p>
-                                                ) : null}
+                                                <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">
+                                                        {name ? name : username}
+                                                </p>
+
+                                                <p className="text-xs font-semibold text-gray-600 group-hover:text-gray-200">
+                                                        {description ? description : ""}
+                                                </p>
                                         </div>
                                 </div>
                         </div>

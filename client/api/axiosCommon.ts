@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 import { ServerResponse } from "../common/interface/api.interface";
 import { store } from "../store";
 import { apiActions } from "../store/api";
-import Cookies from "universal-cookie";
 
 const axiosClient = axios.create({ baseURL: "http://localhost:4000/", withCredentials: true });
 

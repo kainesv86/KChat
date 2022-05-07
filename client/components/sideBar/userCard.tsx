@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { AuthState } from "../../common/interface/auth.dto";
 import { RootState } from "../../store";
 
-export interface UserProps {}
+export interface UserCardProps {}
 
-const User: React.FunctionComponent<UserProps> = ({ children }) => {
+const UserCard: React.FunctionComponent<UserCardProps> = ({ children }) => {
         const authState = useSelector<RootState, AuthState>((state) => state.auth);
         const { avatarUrl, description, name, username } = authState;
         return (
@@ -37,4 +37,4 @@ const User: React.FunctionComponent<UserProps> = ({ children }) => {
         );
 };
 
-export default User;
+export default UserCard;

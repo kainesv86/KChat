@@ -1,35 +1,31 @@
-import { AxiosInstance } from "axios";
 import { UserLoginDto, UserRegisterDto } from "../common/interface/auth.dto";
 
 import http from "./axiosCommon";
 
-export class AuthAPI {
-        constructor(private readonly apiCall: AxiosInstance, readonly prefix: string) {}
+const prefix = "auth";
 
-        async loginUser(input: UserLoginDto) {
-                const url = `${this.prefix + "/login"}`;
-                const res = await this.apiCall.post(url, input);
+export const authApi = {
+        loginUser: async (input: UserLoginDto) => {
+                const url = `${prefix + "/login"}`;
+                const res = await http.post(url, input);
                 return res;
-        }
+        },
 
-        async registerUser(input: UserRegisterDto) {
-                const url = `${this.prefix + "/register"}`;
-                const res = await this.apiCall.post(url, input);
+        registerUser: async (input: UserRegisterDto) => {
+                const url = `${prefix + "/register"}`;
+                const res = await http.post(url, input);
                 return res;
-        }
+        },
 
-        async getUserInfo() {
-                const url = `${this.prefix + "/me"}`;
-                const res = await this.apiCall.get(url);
+        getUserInfo: async () => {
+                const url = `${prefix + "/me"}`;
+                const res = await http.get(url);
                 return res;
-        }
+        },
 
-        async logoutUser() {
-                const url = `${this.prefix + "/logout"}`;
-                const res = await this.apiCall.get(url);
+        logoutUser: async () => {
+                const url = `${prefix + "/logout"}`;
+                const res = await http.get(url);
                 return res;
-        }
-}
-
-export const authApi = new AuthAPI(http, "/auth");
-export default authApi;
+        },
+};

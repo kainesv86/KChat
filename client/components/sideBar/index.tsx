@@ -8,11 +8,12 @@ import LoginIcon from "../../public/asset/login";
 import RegisterIcon from "../../public/asset/register";
 
 import { RootState } from "../../store";
-import UserFriend from "./userFriend";
-import { UserFriendProps } from "./userFriend";
-import User from "./user";
+import UserFriendCard from "./userFriendCard";
+import UserCard from "./userCard";
 
 import routers from "../../common/constants/routers";
+import { userApi } from "../../api/userApi";
+import { RelationshipStatus, User } from "../../common/model/user";
 
 interface SideBarProps {
         isActive?: boolean;
@@ -20,22 +21,17 @@ interface SideBarProps {
 }
 
 const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setActive = () => {} }) => {
+        const [userFriends, setUserFriends] = React.useState<User[]>([]);
         const { isLogin } = useSelector<RootState, AuthState>((state) => state.auth);
 
-        const userFriends: Array<UserFriendProps> = [
-                {
-                        name: "Kainé",
-                        description: "Void Jumping",
-                        avatarUrl: "https://i.ibb.co/PY0ZCXS/49234258-2171577439772648-3163590464041385984-n.jpg",
-                        username: "kainesv86",
-                },
-                {
-                        name: "Kainé Sven",
-                        description: "Void Jumping",
-                        avatarUrl: "https://i.ibb.co/PY0ZCXS/49234258-2171577439772648-3163590464041385984-n.jpg",
-                        username: "kainesv85",
-                },
-        ];
+        React.useEffect(() => {
+                const getFriends = async () => {
+                        const users = await userApi.getFriendByStatus(RelationshipStatus.FRIEND);
+                        setUserFriends(users);
+                };
+                getFriends();
+        }, []);
+
         return (
                 <div
                         className={`sm:w-72 absolute sm:static w-full z-20 duration-300 bg-[#dad4bb] sm:bg-inherit ${
@@ -50,45 +46,47 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                                 </div>
                                         </Link>
                                 </li>
-                                <li>
-                                        <UserFriend name={"No one here"} username="" description={"You need to login to see them again"} />
-                                </li>
+                                <li></li>
 
-                                {isLogin
-                                        ? userFriends.map((item) => (
-                                                  <li key={item.username} onClick={() => setActive(false)}>
-                                                          <UserFriend
-                                                                  name={item.name}
-                                                                  username={item.username}
-                                                                  description={item.description}
-                                                                  avatarUrl={item.avatarUrl}
-                                                          />
-                                                  </li>
-                                          ))
-                                        : null}
+                                {isLogin ? (
+                                        userFriends.map((item) => (
+                                                <li key={item.username} onClick={() => setActive(false)}>
+                                                        <UserFriendCard
+                                                                name={item.name}
+                                                                username={item.username}
+                                                                description={item.description}
+                                                                avatarUrl={
+                                                                        "https://i.ibb.co/PY0ZCXS/49234258-2171577439772648-3163590464041385984-n.jpg"
+                                                                }
+                                                        />
+                                                </li>
+                                        ))
+                                ) : (
+                                        <UserFriendCard name={"No one here"} username="" description={"You need to login to see them again"} />
+                                )}
 
                                 <div className="block sm:hidden">
                                         {isLogin ? null : (
                                                 <div className="flex flex-col">
                                                         <div onClick={() => setActive(false)}>
                                                                 <Link href={routers.login.link}>
-                                                                        <UserFriend name="Login" username="">
+                                                                        <UserFriendCard name="Login" username="">
                                                                                 <LoginIcon />
-                                                                        </UserFriend>
+                                                                        </UserFriendCard>
                                                                 </Link>
                                                         </div>
                                                         <div onClick={() => setActive(false)}>
                                                                 <Link href={routers.register.link}>
-                                                                        <UserFriend name="Register" username="">
+                                                                        <UserFriendCard name="Register" username="">
                                                                                 <RegisterIcon />
-                                                                        </UserFriend>
+                                                                        </UserFriendCard>
                                                                 </Link>
                                                         </div>
                                                 </div>
                                         )}
                                 </div>
                         </ul>
-                        <User />
+                        <UserCard />
                 </div>
         );
 };

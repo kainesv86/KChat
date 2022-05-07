@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
-import userApi from "../../api/userApi";
+import { userApi } from "../../api/userApi";
 import RouteProtection from "../../common/HOC/routerProtectionWrapper";
 import { ApiState } from "../../common/interface/api.interface";
 import { RelationshipStatus, User } from "../../common/model/user";
@@ -46,30 +46,16 @@ const Friends: React.FunctionComponent<FriendsProps> = () => {
                                                                         </div>
                                                                 </div>
                                                                 <div className="flex space-x-2">
-                                                                        {/* <button
-                                                                                className="block w-10 h-10 bg-green-500 rounded-full"
-                                                                                onClick={() =>
-                                                                                        handleOnRequest(user.username, RelationshipStatus.FRIEND)
-                                                                                }
-                                                                        ></button>
-                                                                        <button
-                                                                                className="block w-10 h-10 bg-yellow-500 rounded-full"
-                                                                                onClick={() =>
-                                                                                        handleOnRequest(user.username, RelationshipStatus.NONE)
-                                                                                }
-                                                                        ></button>
-                                                                        <button
-                                                                                className="block w-10 h-10 bg-red-500 rounded-full"
-                                                                                onClick={() =>
-                                                                                        handleOnRequest(user.username, RelationshipStatus.BLOCK)
-                                                                                }
-                                                                        ></button> */}
+                                                                        <button className="block w-10 h-10 bg-gray-600 shadow-nier"></button>
+                                                                        <button className="block w-10 h-10 bg-gray-600 shadow-nier"></button>
                                                                 </div>
                                                         </div>
                                                 ))}
                                         </div>
                                 ) : (
-                                        <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">Nothing left to do aye!</p>
+                                        <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">
+                                                You really have the friends aye?
+                                        </p>
                                 )}
                         </div>
                 </RouteProtection>

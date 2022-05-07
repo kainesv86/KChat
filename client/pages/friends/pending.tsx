@@ -6,7 +6,6 @@ import { ApiState } from "../../common/interface/api.interface";
 import { RelationshipStatus, User } from "../../common/model/user";
 import { RootState } from "../../store";
 import Image from "next/image";
-import authApi from "../../api/authApi";
 
 interface PendingFriendsProps {}
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import * as React from "react";
 import { useSelector } from "react-redux";
-import userApi from "../../api/userApi";
+import { userApi } from "../../api/userApi";
 import RouterProtection from "../../common/HOC/routerProtectionWrapper";
 import { ApiState } from "../../common/interface/api.interface";
 import { RelationshipStatus, User } from "../../common/model/user";
@@ -73,7 +73,9 @@ const BlockFriends: React.FunctionComponent<BlockFriendsProps> = () => {
                                                 ))}
                                         </div>
                                 ) : (
-                                        <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">Nothing left to do aye!</p>
+                                        <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">
+                                                Look like people still fine!
+                                        </p>
                                 )}
                         </div>
                 </RouterProtection>

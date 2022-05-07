@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { AddFriendsDto } from "../../common/model/user";
 import InputField from "../../components/common/inputField";
 import ButtonForm from "../../components/common/buttonForm";
-import userApi from "../../api/userApi";
+import { userApi } from "../../api/userApi";
 
 interface AddFriendsProps {}
 
@@ -16,7 +16,7 @@ const AddFriends: React.FunctionComponent<AddFriendsProps> = () => {
         };
 
         return (
-                <div className="flex flex-col px-2 sm:px-10 pt-10 space-y-1">
+                <div className="flex flex-col px-2 pt-10 space-y-1 sm:px-10">
                         <h2 className="text-lg font-semibold text-gray-900">Add Friend</h2>
                         <p className="text-base font-semibold text-gray-600">You can add a friend in here by their username</p>
                         <form onSubmit={handleSubmit(handleOnSubmit)} className="flex flex-col">
