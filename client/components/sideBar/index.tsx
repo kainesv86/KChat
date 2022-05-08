@@ -52,6 +52,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                         userFriends.map((item) => (
                                                 <li key={item.username} onClick={() => setActive(false)}>
                                                         <UserFriendCard
+                                                                userId={item.id}
                                                                 name={item.name}
                                                                 username={item.username}
                                                                 description={item.description}

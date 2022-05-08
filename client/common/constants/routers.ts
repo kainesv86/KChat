@@ -2,7 +2,7 @@ interface IRouter {
         link: string;
 }
 
-type TRouters = "register" | "login" | "home" | "addFriends" | "blockFriends" | "pendingFriends" | "friends";
+type TRouters = "register" | "login" | "home" | "addFriends" | "blockFriends" | "pendingFriends" | "friends" | "chat";
 
 const config: Record<TRouters, IRouter> = {
         home: {
@@ -25,6 +25,9 @@ const config: Record<TRouters, IRouter> = {
         },
         friends: {
                 link: "/friends",
+        },
+        chat: {
+                link: "/chat",
         },
 };
 
