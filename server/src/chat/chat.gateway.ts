@@ -1,8 +1,8 @@
-import { Req, UseGuards } from "@nestjs/common";
-import { WebSocketGateway, SubscribeMessage, MessageBody, WebSocketServer } from "@nestjs/websockets";
+import { Param, Req, UseGuards } from "@nestjs/common";
+import { WebSocketGateway, SubscribeMessage, MessageBody, WebSocketServer, ConnectedSocket } from "@nestjs/websockets";
 import { Request } from "express";
 import { Server } from "http";
-import { UserGuard } from "src/auth/auth.guard";
+import { SocketExtend } from "socket.io";
 import { UserSocketGuard } from "src/auth/authSocket.guard";
 import { ChatService } from "./chat.service";
 import { ChatLogDto } from "./dto/chat-logn.dto";
@@ -22,12 +22,12 @@ export class ChatGateway {
         server: Server;
 
         @UseGuards(UserSocketGuard)
-        @SubscribeMessage("message")
-        create(@MessageBody() chatLog: ChatLogDto, @Req() req: Request): void {
-                console.log(chatLog);
-                console.log(req.user);
+        @SubscribeMessage("message-in")
+        create(@ConnectedSocket() client: SocketExtend, @MessageBody() chatLog: ChatLogDto): void {
+                chatLog.userId = client.user.id;
 
-                this.server.emit("message", chatLog);
+                console.log(chatLog);
+                client.to(chatLog.chatId).emit("message-in", chatLog);
         }
 
         // @SubscribeMessage("createChat")

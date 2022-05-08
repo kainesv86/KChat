@@ -11,7 +11,6 @@ export class UserGuard implements CanActivate {
                 const req: Request = context.switchToHttp().getRequest();
                 const res: Response = context.switchToHttp().getResponse();
 
-                console.log(req);
                 const accessToken = req.cookies["access-token"] || "";
                 if (accessToken) {
                         const user = await this.authService.getUserByAccessToken(accessToken);
