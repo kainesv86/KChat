@@ -40,7 +40,7 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                 >
                         <ul className={`flex flex-col h-screen overflow-hidden p-4 space-y-2`}>
                                 <li className="flex justify-center h-16" onClick={() => setActive(false)}>
-                                        <Link href="/">
+                                        <Link href="/" passHref>
                                                 <div className="w-16 rounded-full cursor-pointer hover:bg-yellow-100/25">
                                                         <KChatLogo />
                                                 </div>
@@ -70,14 +70,14 @@ const SideBar: React.FunctionComponent<SideBarProps> = ({ isActive = false, setA
                                         {isLogin ? null : (
                                                 <div className="flex flex-col">
                                                         <div onClick={() => setActive(false)}>
-                                                                <Link href={routers.login.link}>
+                                                                <Link passHref href={routers.login.link}>
                                                                         <UserFriendCard name="Login" username="">
                                                                                 <LoginIcon />
                                                                         </UserFriendCard>
                                                                 </Link>
                                                         </div>
                                                         <div onClick={() => setActive(false)}>
-                                                                <Link href={routers.register.link}>
+                                                                <Link passHref href={routers.register.link}>
                                                                         <UserFriendCard name="Register" username="">
                                                                                 <RegisterIcon />
                                                                         </UserFriendCard>

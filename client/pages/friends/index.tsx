@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 import { userApi } from "../../api/userApi";
-import RouteProtection from "../../common/HOC/routerProtectionWrapper";
+import RouterProtection from "../../common/HOC/routerProtectionWrapper";
 import { ApiState } from "../../common/interface/api.interface";
 import { RelationshipStatus, User } from "../../common/model/user";
 import { RootState } from "../../store";
@@ -22,7 +22,7 @@ const Friends: React.FunctionComponent<FriendsProps> = () => {
         }, []);
 
         return (
-                <RouteProtection>
+                <RouterProtection>
                         <div className="flex flex-1 px-2 pt-10">
                                 {apiState.isLoading && users.length ? (
                                         <div className="flex flex-col w-full h-10 space-y-4 sm:max-w-2xl">
@@ -58,7 +58,7 @@ const Friends: React.FunctionComponent<FriendsProps> = () => {
                                         </p>
                                 )}
                         </div>
-                </RouteProtection>
+                </RouterProtection>
         );
 };
 

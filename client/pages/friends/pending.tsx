@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useSelector } from "react-redux";
 import userApi from "../../api/userApi";
-import RouteProtection from "../../common/HOC/routerProtectionWrapper";
+import RouterProtection from "../../common/HOC/routerProtectionWrapper";
 import { ApiState } from "../../common/interface/api.interface";
 import { RelationshipStatus, User } from "../../common/model/user";
 import { RootState } from "../../store";
@@ -28,7 +28,7 @@ const PendingFriends: React.FunctionComponent<PendingFriendsProps> = () => {
         };
 
         return (
-                <RouteProtection>
+                <RouterProtection>
                         <div className="flex flex-1 px-2 pt-10">
                                 {apiState.isLoading && users.length ? (
                                         <div className="flex flex-col w-full h-10 space-y-4 sm:max-w-2xl">
@@ -77,7 +77,7 @@ const PendingFriends: React.FunctionComponent<PendingFriendsProps> = () => {
                                         <p className="text-base font-semibold text-gray-700 group-hover:text-gray-100">Nothing left to do aye!</p>
                                 )}
                         </div>
-                </RouteProtection>
+                </RouterProtection>
         );
 };
 

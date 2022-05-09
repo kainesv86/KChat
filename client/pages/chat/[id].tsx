@@ -7,20 +7,19 @@ import { RootState } from "../../store";
 
 import * as sockIo from "socket.io-client";
 import { ChatLogDto } from "../../common/model/chatLog";
-import { ChatLogProps } from "../../common/interface/chatLog.interface";
-import { GetServerSidePropsContext, NextPage, NextPageContext } from "next";
+import { ChatGatewayAction, ChatLogProps } from "../../common/interface/chat.interface";
+import { NextPage, NextPageContext } from "next";
+import { Router } from "next/router";
+import RouterProtection from "../../common/HOC/routerProtectionWrapper";
 
 interface ChatProps {
-        id: string;
+        chatId: string;
 }
 
-const Chat: NextPage<ChatProps> = ({ id }) => {
+const Chat: NextPage<ChatProps> = ({ chatId }) => {
         const authState = useSelector<RootState, AuthState>((state) => state.auth);
         const { register, handleSubmit } = useForm();
-        const [chatLog, setChatLog] = React.useState<Array<ChatLogProps>>([
-                { userId: "b51fa2a3-9072-4313-861b-459b85e14602", message: "Hello, Kaine", chatId: "" },
-                { userId: "", message: "Hi, Kaiser", chatId: "" },
-        ]);
+        const [chatLog, setChatLog] = React.useState<Array<ChatLogProps>>([]);
 
         const socket = sockIo.connect("http://localhost:4000/chat", {
                 transports: ["websocket", "polling", "flashsocket"],
@@ -29,39 +28,55 @@ const Chat: NextPage<ChatProps> = ({ id }) => {
         });
 
         React.useEffect(() => {
-                socket.on("message-in", (data: ChatLogProps) => {
-                        data.chatId = id;
-                        setChatLog([...chatLog, data]);
+                if (chatId) {
+                        socket.emit(ChatGatewayAction.CHAT_JOIN, { chatId });
+                }
+                return () => {
+                        socket.emit(ChatGatewayAction.CHAT_LEAVE, { chatId });
+                }; //Leave
+        }, [chatId]);
+
+        React.useEffect(() => {
+                console.log("work!");
+                socket.on(ChatGatewayAction.CHAT_SEND, (data: ChatLogProps) => {
+                        console.log("Re: ");
+                        console.log(data);
+                        setChatLog((old) => [...old, data]);
                 });
         });
 
+        React.useEffect(() => {
+                console.log(chatLog);
+        }, [chatLog]);
+
         const onSubmit = async (data: ChatLogDto) => {
-                data.chatId = id;
-                console.log(data);
-                socket.emit("message-in", data);
+                data.chatId = chatId;
+                socket.emit(ChatGatewayAction.CHAT_SEND, data);
         };
 
         return (
-                <div className="flex flex-1 p-10">
-                        <div className="flex flex-col justify-between flex-1 w-full p-6 sm:max-w-7xl shadow-nier">
-                                <div>
-                                        {chatLog.map((item, index) => (
-                                                <p className={`${authState.id === item.userId ? "text-right" : "text-left"}`} key={index}>
-                                                        {item.message}
-                                                </p>
-                                        ))}
+                <RouterProtection>
+                        <div className="flex flex-1 p-10">
+                                <div className="flex flex-col justify-between flex-1 w-full p-6 sm:max-w-7xl shadow-nier">
+                                        <div>
+                                                {chatLog.map((item, index) => (
+                                                        <p className={`${authState.id === item.userId ? "text-right" : "text-left"}`} key={index}>
+                                                                {item.message}
+                                                        </p>
+                                                ))}
+                                        </div>
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                                <InputField name="message" register={register} />
+                                                <button className="">Submit</button>
+                                        </form>
                                 </div>
-                                <form onSubmit={handleSubmit(onSubmit)}>
-                                        <InputField name="message" register={register} />
-                                        <button className="">Submit</button>
-                                </form>
                         </div>
-                </div>
+                </RouterProtection>
         );
 };
 
 Chat.getInitialProps = async (ctx: NextPageContext): Promise<ChatProps> => {
-        let props = { id: ctx.query?.id || "" };
+        let props = { chatId: ctx.query?.id || "" };
         return props as ChatProps;
 };
 

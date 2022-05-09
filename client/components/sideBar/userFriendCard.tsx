@@ -21,13 +21,13 @@ const UserFriend: React.FunctionComponent<UserFriendProps> = ({ avatarUrl, descr
                 if (linkUrl) setLink(linkUrl);
                 else {
                         const roomArrayId = [authState.id, userId].sort();
-                        setLink(`${routers.chat.link}//${roomArrayId[0]}-${roomArrayId[1]}`);
+                        setLink(`${routers.chat.link}/${roomArrayId[0]}-${roomArrayId[1]}`);
                 }
         }, [authState.id, linkUrl, userId]);
 
         return (
                 <>
-                        <Link href={link}>
+                        <Link passHref href={link}>
                                 <div className="transform cursor-pointer group">
                                         <span className="block w-0 h-px mb-px bg-gray-900 group-hover:w-full"></span>
                                         <div className="relative flex flex-col">
