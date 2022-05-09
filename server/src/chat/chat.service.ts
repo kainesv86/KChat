@@ -1,8 +1,10 @@
 import { Injectable } from "@nestjs/common";
+// import { ChatRepository } from "./entities/chat.repository";
 
 @Injectable()
 export class ChatService {
-        createChatMessage(createChatDto: CreateChatDto) {}
+        // constructor() {}
+        // async createChatMessage(chat: Chat) {}
         // findAll() {
         //         return `This action returns all chat`;
         // }
