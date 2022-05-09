@@ -1,29 +1,33 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Relationship } from '../../relationship/entities/relationship.entity';
+import { Chat } from "src/chat/entities/chat.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Relationship } from "../../relationship/entities/relationship.entity";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+        @PrimaryGeneratedColumn("uuid")
+        id: string;
 
-  @Column({ unique: true })
-  username: string;
+        @Column({ unique: true })
+        username: string;
 
-  @Column()
-  name: string;
+        @Column()
+        name: string;
 
-  @Column()
-  password: string;
+        @Column()
+        password: string;
 
-  @Column()
-  email: string;
+        @Column()
+        email: string;
 
-  @Column()
-  avatarUrl: string;
+        @Column()
+        avatarUrl: string;
 
-  @Column()
-  description: string;
+        @Column()
+        description: string;
 
-  @OneToMany(() => Relationship, (relationship) => relationship.user)
-  relationships: Relationship[];
+        @OneToMany(() => Relationship, (relationship) => relationship.user)
+        relationships: Relationship[];
+
+        @OneToMany(() => Chat, (chat) => chat.user)
+        chat: Chat[];
 }

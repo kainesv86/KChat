@@ -5,6 +5,7 @@ import { UserSocketGuard } from "src/auth/authSocket.guard";
 import { ChatService } from "./chat.service";
 import { ChatLogDto } from "./dto/chat-logn.dto";
 import { ChatIdDto } from "./dto/roomIdDto";
+import { Chat } from "./entities/chat.entity";
 import { ChatGatewayAction } from "./entities/chat.enum";
 
 @WebSocketGateway({
@@ -23,12 +24,19 @@ export class ChatGateway {
 
         @UseGuards(UserSocketGuard)
         @SubscribeMessage(ChatGatewayAction.CHAT_SEND)
-        handleSendChatMessage(@ConnectedSocket() client: SocketExtend, @MessageBody() chatLog: ChatLogDto): void {
+        async handleSendChatMessage(@ConnectedSocket() client: SocketExtend, @MessageBody() chatLog: ChatLogDto): Promise<void> {
                 chatLog.userId = client.user.id;
                 chatLog.createDate = new Date();
 
-                this.chatService;
-                this.server.to(chatLog.chatId).emit(ChatGatewayAction.CHAT_SEND, chatLog);
+                const newChat = new Chat();
+                newChat.chatId = chatLog.chatId;
+                newChat.createDate = chatLog.createDate;
+                newChat.message = chatLog.message;
+                newChat.user = client.user;
+
+                await this.chatService.addChatMessage(newChat);
+
+                this.server.to(chatLog.chatId).emit(ChatGatewayAction.CHAT_SEND, newChat);
         }
 
         @SubscribeMessage(ChatGatewayAction.CHAT_JOIN)

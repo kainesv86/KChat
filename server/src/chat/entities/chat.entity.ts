@@ -1,5 +1,5 @@
 import { User } from "src/user/entities/user.entity";
-import { Entity, Column, OneToMany, CreateDateColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 
 @Entity()
 export class Chat {
@@ -9,7 +9,7 @@ export class Chat {
         @Column()
         chatId: string;
 
-        @OneToMany(() => User, (user) => user.id)
+        @ManyToOne(() => User, (user) => user.chat)
         user: User;
 
         @Column()

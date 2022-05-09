@@ -54,7 +54,13 @@ export class UserController {
                         creator.user = req.user;
                         creator.friendUser = friendUser;
                         creator.status = RelationshipStatus.PENDING;
-                        this.relationshipService.addRelationship(creator);
+                        await this.relationshipService.addRelationship(creator);
+
+                        const receiver = new Relationship();
+                        receiver.user = friendUser;
+                        receiver.friendUser = req.user;
+                        receiver.status = RelationshipStatus.NONE;
+                        await this.relationshipService.addRelationship(receiver);
                 }
 
                 return new HttpException({ details: { message: "Send request successfully" } }, HttpStatus.OK);
