@@ -26,6 +26,8 @@ export class ChatGateway {
         handleSendChatMessage(@ConnectedSocket() client: SocketExtend, @MessageBody() chatLog: ChatLogDto): void {
                 chatLog.userId = client.user.id;
                 chatLog.createDate = new Date();
+
+                this.chatService;
                 this.server.to(chatLog.chatId).emit(ChatGatewayAction.CHAT_SEND, chatLog);
         }
 

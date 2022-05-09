@@ -1,10 +1,17 @@
 import { Injectable } from "@nestjs/common";
-// import { ChatRepository } from "./entities/chat.repository";
+import { Chat } from "./entities/chat.entity";
+import { ChatRepository } from "./entities/chat.repository";
 
 @Injectable()
 export class ChatService {
-        // constructor() {}
-        // async createChatMessage(chat: Chat) {}
+        constructor(private readonly chatRepository: ChatRepository) {}
+        async createOnChateMessage(newChatMessage: Chat): Promise<void> {
+                await this.chatRepository.insert(newChatMessage);
+        }
+
+        async getAllChatMessageById(chatId: string): Promise<Chat[]> {
+                return await this.chatRepository.find({ chatId });
+        }
         // findAll() {
         //         return `This action returns all chat`;
         // }
