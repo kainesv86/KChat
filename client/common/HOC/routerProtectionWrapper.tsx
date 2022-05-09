@@ -11,7 +11,6 @@ const RouterProtection: React.FunctionComponent<RouterProtectionProps> = ({ chil
         const authState = useSelector<RootState, AuthState>((state) => state.auth);
         const router = useRouter();
         React.useEffect(() => {
-                console.log(authState);
                 if (!authState.isLogin) {
                         router.push(routers.login.link);
                 }

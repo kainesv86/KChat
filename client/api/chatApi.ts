@@ -1,11 +1,11 @@
-import { ServerResponse } from "../common/interface/api.interface";
-import { RoomIdChatDto } from "../common/interface/chatLog.interface";
+import { ChatLogProps } from "../common/interface/chat.interface";
+import { ChatLogDto } from "../common/model/chatLog";
 import http from "./axiosCommon";
 
 export const chatApi = {
-        joinChat: async (input: RoomIdChatDto) => {
-                const url = `/chat/join`;
-                const res = await http.put<ServerResponse<RoomIdChatDto>>(url, input);
-                return res;
+        getChatHistory: async (chatId: string) => {
+                const url = `/chat/${chatId}`;
+                const res = await http.get<ChatLogProps[]>(url);
+                return res.data;
         },
 };

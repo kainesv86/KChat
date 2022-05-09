@@ -1,11 +1,13 @@
+import { User } from "../model/user";
+
 export interface ChatLogProps {
         chatId: string;
-        userId: string;
+        user: User;
         message: string;
         createDate?: Date;
 }
 
-export interface RoomIdChatDto {
+export interface ChatIdDto {
         chatId: string;
 }
 
