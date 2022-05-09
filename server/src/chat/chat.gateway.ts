@@ -1,11 +1,11 @@
-import { Param, Req, UseGuards } from "@nestjs/common";
+import { UseGuards } from "@nestjs/common";
 import { WebSocketGateway, SubscribeMessage, MessageBody, WebSocketServer, ConnectedSocket } from "@nestjs/websockets";
-import { Request } from "express";
-import { Server } from "http";
-import { SocketExtend } from "socket.io";
+import { SocketExtend, Server } from "socket.io";
 import { UserSocketGuard } from "src/auth/authSocket.guard";
 import { ChatService } from "./chat.service";
 import { ChatLogDto } from "./dto/chat-logn.dto";
+import { ChatIdDto } from "./dto/roomIdDto";
+import { ChatGatewayAction } from "./entities/chat.enum";
 
 @WebSocketGateway({
         namespace: "chat",
@@ -22,12 +22,24 @@ export class ChatGateway {
         server: Server;
 
         @UseGuards(UserSocketGuard)
-        @SubscribeMessage("message-in")
-        create(@ConnectedSocket() client: SocketExtend, @MessageBody() chatLog: ChatLogDto): void {
+        @SubscribeMessage(ChatGatewayAction.CHAT_SEND)
+        handleSendChatMessage(@ConnectedSocket() client: SocketExtend, @MessageBody() chatLog: ChatLogDto): void {
                 chatLog.userId = client.user.id;
+                chatLog.createDate = new Date();
+                this.server.to(chatLog.chatId).emit(ChatGatewayAction.CHAT_SEND, chatLog);
+        }
 
-                console.log(chatLog);
-                client.to(chatLog.chatId).emit("message-in", chatLog);
+        @SubscribeMessage(ChatGatewayAction.CHAT_JOIN)
+        handleJoinSocket(@ConnectedSocket() client: SocketExtend, @MessageBody() chatIdDto: ChatIdDto): void {
+                console.log("Join: " + chatIdDto.chatId);
+                client.join(chatIdDto.chatId);
+        }
+
+        @SubscribeMessage(ChatGatewayAction.CHAT_LEAVE)
+        handleLeaveSocket(@ConnectedSocket() client: SocketExtend, @MessageBody() chatIdDto: ChatIdDto): void {
+                console.log("Leave: " + chatIdDto.chatId);
+                console.log("=======================================================");
+                client.leave(chatIdDto.chatId);
         }
 
         // @SubscribeMessage("createChat")

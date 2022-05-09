@@ -3,7 +3,7 @@ import { Entity, Column, OneToMany, CreateDateColumn, PrimaryColumn } from "type
 
 @Entity()
 export class Chat {
-        @PrimaryColumn()
+        @Column()
         chatId: string;
 
         @OneToMany(() => User, (user) => user.id)
